@@ -149,7 +149,7 @@ validate_file_integrity() {
         [".specify/scripts/bash/git-changelog-hook.sh"]="Git hooks主脚本"
         [".specify/scripts/bash/commit-parser.sh"]="提交解析器"
         [".specify/scripts/bash/update-changelog.sh"]="CHANGELOG更新器"
-        ["docs/AI-COLLABORATION-GUIDE.md"]="AI协作指南"
+        ["docs/ai-collaboration-guide.md"]="AI协作指南"
         [".specify/templates/spec-template.md"]="功能规格模板"
     )
 
@@ -427,7 +427,7 @@ validate_documentation() {
     log_step "验证文档完整性"
 
     # 检查AI协作指南
-    local ai_guide="$TARGET_PROJECT/docs/AI-COLLABORATION-GUIDE.md"
+    local ai_guide="$TARGET_PROJECT/docs/ai-collaboration-guide.md"
     if [ -f "$ai_guide" ]; then
         if grep -q "AI协作实践指南" "$ai_guide"; then
             check_pass "AI协作指南内容正确"

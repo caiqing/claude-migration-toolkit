@@ -1,50 +1,57 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+- Version change: 1.0.0 → 1.0.0 (initial constitution)
+- Modified principles: N/A (initial creation)
+- Added sections: All sections (5核心原则, 3质量标准, 3开发工作流, 治理)
+- Removed sections: N/A
+- Templates requiring updates: ✅ plan-template.md, ✅ spec-template.md, ✅ tasks-template.md
+- Follow-up TODOs: N/A
+- Summary: 已创建Claude标准迁移工具包的完整宪法，包含5个核心原则（可迁移性优先、CLI界面、测试优先、集成测试、AI协作增强），以及质量标准、开发工作流和治理结构
+-->
 
-## Core Principles
+# Claude标准迁移工具包宪法
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+## 核心原则
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### I. 可迁移性优先
+每个功能都必须设计为可迁移到其他项目的独立组件。组件必须自包含、可独立测试、有完整文档；必须有明确用途 - 不允许仅为组织结构而创建的组件。
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. 命令行界面
+每个库都必须通过CLI暴露功能；文本输入/输出协议：stdin/args → stdout，错误 → stderr；支持JSON和人类可读格式。
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### III. 测试优先（不可协商）
+TDD强制执行：先写测试 → 用户批准 → 测试失败 → 然后实现；严格执行红-绿-重构循环。
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### IV. 集成测试
+需要集成测试的重点领域：新库契约测试、契约变更、服务间通信、共享模式。
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### V. AI协作增强
+集成AI协作功能，支持12种协作范式；智能分支命名，中文语义到英文映射；自动化Git工作流。
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+## 质量标准
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+### 可靠性要求
+所有迁移脚本必须具有向后兼容性；支持多种操作系统和Shell环境；包含错误处理和回滚机制。
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### 性能标准
+迁移过程必须在合理时间内完成；最小化对目标项目的影响；内存使用效率优化。
 
-## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+### 文档标准
+每个功能都必须有清晰的使用说明；包含故障排除指南；提供实际示例。
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+## 开发工作流
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+### 代码审查要求
+所有PR必须验证是否符合宪法原则；复杂度必须有合理说明；使用运行时开发指导文件。
+
+### 测试门控
+单元测试覆盖率必须达到100%；集成测试必须覆盖关键路径；性能测试必须满足基准要求。
+
+### 部署批准流程
+迁移功能必须通过完整验证；必须支持渐进式部署；必须有回滚计划。
+
+## 治理
+
+宪法优先于所有其他实践；修订需要文档化、批准、迁移计划。
+
+**版本**: 1.0.0 | **批准**: 2025-10-06 | **最后修订**: 2025-10-06

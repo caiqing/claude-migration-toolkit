@@ -82,14 +82,41 @@ cd claude-migration-toolkit
 
 ### AI协作功能
 ```bash
-# 激活可视化协作模式
-/collaborate visual
+# 激活创意激发头脑风暴
+/collaborate creative
+
+# 激活批判性思考分析
+/collaborate critical
 
 # 使用EARS方法描述需求
 /collaborate ears
 
+# 激活持续进化反馈
+/collaborate evolve
+
+# 激活双向费曼学习法
+/collaborate feynman
+
 # 激活第一性原理分析
 /collaborate first-principles
+
+# 激活跨界知识融合
+/collaborate fusion
+
+# 激活个性化学习路径
+/collaborate learning
+
+# 激活流程优化建议
+/collaborate optimize
+
+# 激活渐进式沟通
+/collaborate progressive
+
+# 激活SMART结构化表达
+/collaborate smart
+
+# 激活可视化协作模式
+/collaborate visual
 ```
 
 ### 智能分支命名
@@ -110,18 +137,18 @@ git commit -m "feat: 添加用户认证功能"
 
 ## 支持的协作范式
 
-1. **first-principles** - 第一性原理思维分析
-2. **progressive** - 渐进式沟通（从类比到深入）
-3. **visual** - 可视化呈现（图表和流程图）
-4. **feynman** - 双向费曼学习法
-5. **smart** - SMART结构化表达
-6. **critical** - 批判性思考分析
-7. **creative** - 创意激发头脑风暴
-8. **optimize** - 流程优化建议
-9. **learning** - 个性化学习路径
-10. **fusion** - 跨界知识融合
-11. **evolve** - 持续进化反馈
-12. **ears** - EARS需求描述方法（事件、条件、行动、响应）
+1. **creative** - 创意激发头脑风暴
+2. **critical** - 批判性思考分析
+3. **ears** - EARS需求描述方法（事件、条件、行动、响应）
+4. **evolve** - 持续进化反馈
+5. **feynman** - 双向费曼学习法
+6. **first-principles** - 第一性原理思维分析
+7. **fusion** - 跨界知识融合
+8. **learning** - 个性化学习路径
+9. **optimize** - 流程优化建议
+10. **progressive** - 渐进式沟通（从类比到深入）
+11. **smart** - SMART结构化表达
+12. **visual** - 可视化呈现（图表和流程图）
 
 ## 系统要求
 

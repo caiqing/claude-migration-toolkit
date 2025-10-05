@@ -291,7 +291,7 @@ migrate_ai_collaboration_guide() {
     log_step "迁移AI协作指南"
 
     # 复制AI协作指南
-    execute_file_operation "copy" "$MIGRATION_ROOT/core-files/ai-collaboration-guide.md" "$TARGET_PROJECT/docs/AI-COLLABORATION-GUIDE.md"
+    execute_file_operation "copy" "$MIGRATION_ROOT/core-files/ai-collaboration-guide.md" "$TARGET_PROJECT/docs/ai-collaboration-guide.md"
 
     log_success "AI协作指南迁移完成"
 }
@@ -378,7 +378,7 @@ show_migration_summary() {
     echo -e "  🤖 AI协作: /collaborate [范式名称]"
     echo -e "  🌱 智能分支: create-new-feature.sh [描述]"
     echo -e "  📝 自动更新: Git提交时自动更新CHANGELOG"
-    echo -e "  📚 使用指南: docs/AI-COLLABORATION-GUIDE.md"
+    echo -e "  📚 使用指南: docs/ai-collaboration-guide.md"
 
     echo
     echo -e "${GREEN}✨ 迁移完成！现在可以使用Claude AI协作功能了${NC}"

@@ -106,40 +106,115 @@ ls -la scripts/
 # 查看所有可用的协作范式
 /collaborate help
 
-# 激活可视化协作模式
-/collaborate visual
+# 激活创意激发头脑风暴
+/collaborate creative
 
-# 激活第一性原理分析
-/collaborate first-principles
+# 激活批判性思考分析
+/collaborate critical
 
-# 激活渐进式沟通
-/collaborate progressive
+# 激活EARS需求描述方法（事件、条件、行动、响应）
+/collaborate ears
+
+# 激活持续进化反馈
+/collaborate evolve
 
 # 激活双向费曼学习法
 /collaborate feynman
 
-# 激活EARS需求描述方法
-/collaborate ears
+# 激活第一性原理思维分析
+/collaborate first-principles
+
+# 激活跨界知识融合
+/collaborate fusion
+
+# 激活个性化学习路径
+/collaborate learning
+
+# 激活流程优化建议
+/collaborate optimize
+
+# 激活渐进式沟通（从类比到深入）
+/collaborate progressive
+
+# 激活SMART结构化表达
+/collaborate smart
+
+# 激活可视化呈现（图表和流程图）
+/collaborate visual
 ```
 
 #### 使用场景示例
 
-**场景1：架构设计讨论**
+**场景1：创意激发**
 ```bash
-/collaborate visual
-用户: 请解释微服务架构的组件交互
+/collaborate creative
+用户: 我们需要一个创新的功能来提升用户参与度，请帮我头脑风暴
 ```
 
-**场景2：学习新技术**
+**场景2：方案评估**
+```bash
+/collaborate critical
+用户: 请批判性地分析这个微服务架构方案的优缺点
+```
+
+**场景3：需求描述**
+```bash
+/collaborate ears
+用户: 用户登录时需要验证邮箱
+```
+
+**场景4：持续改进**
+```bash
+/collaborate evolve
+用户: 基于上次的讨论，请进一步优化我们的数据库设计方案
+```
+
+**场景5：深度学习**
+```bash
+/collaborate feynman
+用户: 我想彻底理解React Hooks的工作原理，请你通过问答来检验我的理解
+```
+
+**场景6：本质分析**
+```bash
+/collaborate first-principles
+用户: 如何从根本上优化数据库查询性能？
+```
+
+**场景7：知识融合**
+```bash
+/collaborate fusion
+用户: 将心理学原理应用到用户界面设计中
+```
+
+**场景8：个性化学习**
+```bash
+/collaborate learning
+用户: 我想系统学习分布式系统，请为我制定学习路径
+```
+
+**场景9：流程优化**
+```bash
+/collaborate optimize
+用户: 请分析并优化我们的代码审查流程
+```
+
+**场景10：渐进式学习**
 ```bash
 /collaborate progressive
 用户: 用渐进式方式解释React Hooks
 ```
 
-**场景3：需求分析**
+**场景11：结构化表达**
 ```bash
-/collaborate ears
-用户: 用户登录时需要验证邮箱
+/collaborate smart
+用户: 请用SMART框架来制定这个季度的开发目标
+```
+
+**场景12：可视化呈现**
+```bash
+/collaborate visual
+用户: 请解释微服务架构的组件交互
 ```
 
 ### 智能分支命名

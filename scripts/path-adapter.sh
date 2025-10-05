@@ -374,7 +374,7 @@ generate_adaptation_report() {
 - ✅ .specify/scripts/bash/update-changelog.sh
 
 ### 文档和模板
-- ✅ docs/AI-COLLABORATION-GUIDE.md
+- ✅ docs/ai-collaboration-guide.md
 - ✅ .specify/templates/spec-template.md
 
 ## 目录结构
@@ -395,7 +395,7 @@ $repo_root/
 │       └── spec-template.md
 ├── specs/
 └── docs/
-    ├── AI-COLLABORATION-GUIDE.md
+    ├── ai-collaboration-guide.md
     └── CHANGELOG.md
 \`\`\`
 

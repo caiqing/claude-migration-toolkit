@@ -67,9 +67,17 @@ fi
 NEXT=$((HIGHEST + 1))
 FEATURE_NUM=$(printf "%03d" "$NEXT")
 
-BRANCH_NAME=$(echo "$FEATURE_DESCRIPTION" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/-\+/-/g' | sed 's/^-//' | sed 's/-$//')
-WORDS=$(echo "$BRANCH_NAME" | tr '-' '\n' | grep -v '^$' | head -3 | tr '\n' '-' | sed 's/-$//')
-BRANCH_NAME="${FEATURE_NUM}-${WORDS}"
+# 集成智能分支命名系统
+INTELLIGENT_NAMER="$REPO_ROOT/.specify/scripts/bash/intelligent-branch-namer.sh"
+if [ -f "$INTELLIGENT_NAMER" ]; then
+    # 使用智能命名脚本
+    BRANCH_NAME=$(source "$INTELLIGENT_NAMER" && generate_intelligent_branch_name "$FEATURE_DESCRIPTION" "$FEATURE_NUM")
+else
+    # Fallback 到原始逻辑
+    BRANCH_NAME=$(echo "$FEATURE_DESCRIPTION" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/-\+/-/g' | sed 's/^-//' | sed 's/-$//')
+    WORDS=$(echo "$BRANCH_NAME" | tr '-' '\n' | grep -v '^$' | head -3 | tr '\n' '-' | sed 's/-$//')
+    BRANCH_NAME="${FEATURE_NUM}-${WORDS}"
+fi
 
 if [ "$HAS_GIT" = true ]; then
     git checkout -b "$BRANCH_NAME"

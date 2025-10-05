@@ -75,6 +75,9 @@
 - [ ] T021 [P] Update docs/api.md
 - [ ] T022 Remove duplication
 - [ ] T023 Run manual-testing.md
+- [ ] T024 [P] Add AI协作功能支持
+- [ ] T025 [P] 集成智能分支命名功能
+- [ ] T026 配置Git自动化工作流
 
 ## Dependencies
 - Tests (T004-T007) before implementation (T008-T014)
