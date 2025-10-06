@@ -8,6 +8,7 @@
     - **修复脚本绝对路径问题，提升可迁移性: 这修复了Git hooks自动更新CHANGELOG的功能，使其可以在任何项目中正常工作。**
 
 ### 🚀 Features
+    - **更新core-files添加协作会话管理系统: 新增功能：**
     - **更新core-files添加协作会话管理系统: 文档更新：**
     - **实现完整的AI协作会话自动化管理系统: - 创建协作会话自动化管理脚本 (collaboration-session-automation.sh)**
     - **实现完整的AI协作会话自动化管理系统: 🤖 Generated with [Claude Code](https://claude.com/claude-code)**
