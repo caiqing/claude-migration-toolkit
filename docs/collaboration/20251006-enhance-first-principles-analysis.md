@@ -46,7 +46,7 @@
 ```mermaid
 graph TB
     subgraph "用户接口层"
-        CLI[/enhance 命令]
+        CLI[enhance 命令]
         Args[命令参数解析]
     end
 
