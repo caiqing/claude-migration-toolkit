@@ -181,11 +181,15 @@ graph TB
 - `/analyze` - 跨文档一致性分析和质量检查
 - `/implement` - 执行实现计划中的所有任务
 - `/constitution` - 创建或更新项目章程文档
+- `/save` - 保存当前协作会话，生成结构化文档并更新索引
 
 ### 重要脚本
 - `.specify/scripts/bash/create-new-feature.sh` - 创建新功能分支和规格文档
 - `.specify/scripts/bash/setup-plan.sh` - 设置实现计划环境
 - `.specify/scripts/bash/update-agent-context.sh` - 更新AI助手上下文文件
+- `.specify/scripts/bash/collaboration-session-automation.sh` - AI协作会话自动化管理
+- `.specify/scripts/bash/collaboration-quick-start.sh` - 协作会话快速启动器
+- `.specify/scripts/bash/update-collaboration-index.py` - 协作会话索引更新工具
 
 ## 项目架构
 
@@ -211,7 +215,9 @@ graph TB
     ├── tasks.md
     ├── analyze.md
     ├── implement.md
-    └── constitution.md
+    ├── constitution.md
+    ├── collaborate.md
+    └── save.md
 
 specs/               # 功能规格和实现文档（动态生成）
 └── [###-feature-name]/
@@ -222,6 +228,13 @@ specs/               # 功能规格和实现文档（动态生成）
     ├── quickstart.md # 快速开始指南
     ├── contracts/    # API契约
     └── tasks.md      # 开发任务列表
+
+docs/
+├── collaboration/    # AI协作会话记录
+│   ├── index.md      # 协作会话索引
+│   ├── YYYYMMDD-主题描述.md  # 具体的协作会话记录
+│   └── README.md     # 协作会话说明文档
+└── collaboration-quick-guide.md  # 协作会话快速指南
 ```
 
 ### 开发流程原则
@@ -251,6 +264,39 @@ specs/               # 功能规格和实现文档（动态生成）
 - TDD任务组织
 - 验证检查清单
 
+## AI协作系统
+
+### 协作会话管理
+- **启动协作**：使用 `/collaborate [范式] [主题]` 开始AI协作会话
+- **保存会话**：使用 `/save` 保存当前协作会话为结构化文档
+- **自动化记录**：AI自动记录讨论内容、关键洞察和产出成果
+- **索引管理**：自动生成和维护协作会话索引，便于查阅
+
+### 协作范式
+支持12种AI协作范式，适用于不同场景：
+- first-principles - 第一性原理思维分析
+- progressive - 渐进式沟通（从类比到深入）
+- visual - 可视化呈现（图表和流程图）
+- creative - 创意激发头脑风暴
+- critical - 批判性思考分析
+- feynman - 双向费曼学习法
+- smart - SMART结构化表达
+- optimize - 流程优化建议
+- ears - EARS需求描述方法
+- evolve - 持续进化反馈
+- fusion - 跨界知识融合
+- learning - 个性化学习路径
+
+### 协作文档结构
+每个协作会话生成标准化的Markdown文档，包含：
+- 会话元信息（ID、时间、范式、主题）
+- 范式说明和协作方式
+- 完整的讨论内容记录
+- 关键洞察和核心发现
+- 产出成果和具体交付物
+- 行动要点和后续任务
+- 结构化的知识总结
+
 ## 开发最佳实践
 
 ### 功能开发
@@ -260,11 +306,20 @@ specs/               # 功能规格和实现文档（动态生成）
 4. 通过 `/tasks` 获得具体开发任务
 5. 定期运行 `/analyze` 检查一致性
 
+### AI协作开发
+1. 复杂问题分析：使用 `/collaborate first-principles` 进行深度分析
+2. 架构设计讨论：使用 `/collaborate visual` 进行可视化设计
+3. 创意头脑风暴：使用 `/collaborate creative` 激发创新想法
+4. 知识学习掌握：使用 `/collaborate feynman` 进行教学相长
+5. 完成后使用 `/save` 保存协作成果
+
 ### 文档管理
 - 所有功能文档存储在 `specs/` 目录下
+- AI协作文档存储在 `docs/collaboration/` 目录下
 - 使用版本化的分支命名 `[###-feature-name]`
 - 保持设计文档与实现的同步
 - 及时更新项目章程
+- 使用 `/save` 保存AI协作成果
 
 ### 质量保证
 - 每个功能都有完整的规格说明

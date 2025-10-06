@@ -302,7 +302,7 @@ add_insight() {
     fi
 
     # 更新状态文件
-    sed -i '' "s/^KEY_INSIGHTS=.*/KEY_INSIGHTS=\"$KEY_INSIGHTS\"/" "$SESSION_STATE_FILE"
+    sed -i '' "s|^KEY_INSIGHTS=.*|KEY_INSIGHTS=\"$KEY_INSIGHTS\"|" "$SESSION_STATE_FILE"
 
     echo -e "${GREEN}✅ 关键洞察已记录${NC}"
 }
@@ -323,7 +323,7 @@ add_output() {
         OUTPUTS="- $output"
     fi
 
-    sed -i '' "s/^OUTPUTS=.*/OUTPUTS=\"$OUTPUTS\"/" "$SESSION_STATE_FILE"
+    sed -i '' "s|^OUTPUTS=.*|OUTPUTS=\"$OUTPUTS\"|" "$SESSION_STATE_FILE"
 
     echo -e "${GREEN}✅ 产出成果已记录${NC}"
 }
@@ -344,7 +344,7 @@ add_action() {
         ACTIONS="- $action"
     fi
 
-    sed -i '' "s/^ACTIONS=.*/ACTIONS=\"$ACTIONS\"/" "$SESSION_STATE_FILE"
+    sed -i '' "s|^ACTIONS=.*|ACTIONS=\"$ACTIONS\"|" "$SESSION_STATE_FILE"
 
     echo -e "${GREEN}✅ 行动要点已记录${NC}"
 }
@@ -407,18 +407,18 @@ save_session() {
     local safe_summary=$(echo "$knowledge_summary" | sed 's/$/\\n/' | tr -d '\n')
 
     # 使用模板生成会话文档
-    sed -e "s/{{SESSION_ID}}/$SESSION_ID/g" \
-        -e "s/{{SESSION_DATE}}/$SESSION_DATE/g" \
-        -e "s/{{SESSION_TIME}}/$SESSION_TIME/g" \
-        -e "s/{{PARADIGM_NAME}}/$PARADIGM_NAME/g" \
-        -e "s/{{PARADIGM_DESC}}/$PARADIGM_DESC/g" \
-        -e "s/{{PARADIGM_EXPLANATION}}/$PARADIGM_EXPLANATION/g" \
-        -e "s/{{TOPIC}}/$TOPIC/g" \
-        -e "s/{{DISCUSSION_CONTENT}}/$safe_discussion/g" \
-        -e "s/{{KEY_INSIGHTS}}/$safe_insights/g" \
-        -e "s/{{OUTPUTS}}/$safe_outputs/g" \
-        -e "s/{{ACTIONS}}/$safe_actions/g" \
-        -e "s/{{KNOWLEDGE_SUMMARY}}/$safe_summary/g" \
+    sed -e "s|{{SESSION_ID}}|$SESSION_ID|g" \
+        -e "s|{{SESSION_DATE}}|$SESSION_DATE|g" \
+        -e "s|{{SESSION_TIME}}|$SESSION_TIME|g" \
+        -e "s|{{PARADIGM_NAME}}|$PARADIGM_NAME|g" \
+        -e "s|{{PARADIGM_DESC}}|$PARADIGM_DESC|g" \
+        -e "s|{{PARADIGM_EXPLANATION}}|$PARADIGM_EXPLANATION|g" \
+        -e "s|{{TOPIC}}|$TOPIC|g" \
+        -e "s|{{DISCUSSION_CONTENT}}|$safe_discussion|g" \
+        -e "s|{{KEY_INSIGHTS}}|$safe_insights|g" \
+        -e "s|{{OUTPUTS}}|$safe_outputs|g" \
+        -e "s|{{ACTIONS}}|$safe_actions|g" \
+        -e "s|{{KNOWLEDGE_SUMMARY}}|$safe_summary|g" \
         -e "s|{{FILE_PATH}}|$FILEPATH|g" \
         "$TEMPLATE_FILE" > "$FILEPATH"
 
@@ -458,39 +458,15 @@ EOF
 
 # 更新索引文件
 update_index() {
-    if [ ! -f "$INDEX_FILE" ]; then
-        create_index_file
+    # 使用Python脚本安全地更新索引
+    local python_script=".specify/scripts/bash/update-collaboration-index.py"
+
+    if [ -f "$python_script" ]; then
+        python3 "$python_script"
+    else
+        echo -e "${RED}错误: 找不到索引更新脚本${NC}"
+        return 1
     fi
-
-    # 扫描现有的会话文件
-    local session_list=""
-    local latest_date=""
-
-    for file in "$COLLABORATION_DIR"/*.md; do
-        if [ "$file" != "$INDEX_FILE" ] && [ -f "$file" ]; then
-            local basename=$(basename "$file" .md)
-            local file_date=$(echo "$basename" | cut -d'-' -f1)
-            local topic=$(echo "$basename" | cut -d'-' -f2-)
-
-            # 从文件中提取元信息
-            local paradigm=$(grep "协作范式:" "$file" | sed 's/.*协作范式: //' | sed 's/ (.*$//')
-
-            session_list="$session_list#### [$basename]($basename.md)\n\n**协作范式**: $paradigm\n**主题**: $topic\n\n---\n\n"
-
-            if [ "$file_date" > "$latest_date" ]; then
-                latest_date="$file_date"
-            fi
-        fi
-    done
-
-    # 更新索引文件
-    local update_date=$(date +"%Y-%m-%d %H:%M")
-    sed -e "s/{{SESSION_LIST}}/$session_list/g" \
-        -e "s/{{UPDATE_DATE}}/$update_date/g" \
-        "$INDEX_FILE" > "${INDEX_FILE}.tmp"
-    mv "${INDEX_FILE}.tmp" "$INDEX_FILE"
-
-    echo -e "${GREEN}✅ 索引文件已更新${NC}"
 }
 
 # 列出所有会话
