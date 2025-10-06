@@ -61,7 +61,7 @@ graph LR
 
 ```mermaid
 flowchart TD
-    Start([用户输入/collaborate]) --> Check{检查活跃会话}
+    Start([用户输入'/collaborate']) --> Check{检查活跃会话}
 
     Check -->|无活跃会话| CreateNew[创建新会话]
     Check -->|有活跃会话| Continue[继续现有会话]
