@@ -88,6 +88,7 @@ claude-migration-toolkit/
 
 ## 📚 详细文档
 
+- [SDD规范驱动开发](docs/SDD规范驱动开发.md) - 规范驱动开发方法论和实践指南
 - [系统优化指南](docs/system_optimization_guide.md)
 - [v0.1.0发布报告](docs/v0.1.0-release-report.md)
 - [变更日志](docs/CHANGELOG.md)
