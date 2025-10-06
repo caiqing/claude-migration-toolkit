@@ -49,6 +49,21 @@
 ### 文件结构
 ```
 claude-migration-toolkit/
+├── .specify/             # Specify框架配置和优化组件
+│   ├── memory/           # 项目宪法和长期记忆
+│   ├── scripts/          # 自动化脚本
+│   ├── templates/        # 文档模板
+│   └── optimization/     # 🆕 系统优化组件
+│       ├── improved-content-handler.sh    # 安全内容处理器
+│       ├── error-handler.sh               # 智能错误诊断器
+│       ├── content-validator.sh           # 内容完整性验证器
+│       └── enhanced-collaboration.sh      # 增强协作系统
+├── .claude/              # Claude Code配置
+│   └── commands/         # 斜杠命令定义
+│       ├── specify.md
+│       ├── collaborate.md
+│       ├── save.md
+│       └── enhance.md    # 🆕 增强版协作命令
 ├── core-files/           # 15个核心迁移文件
 │   ├── CLAUDE.md
 │   ├── collaborate.md
@@ -65,23 +80,20 @@ claude-migration-toolkit/
 │   ├── collaboration-session-manager.sh
 │   ├── collaboration-enhanced.sh
 │   └── UPDATE_LOG.md
-├── optimization/         # 🆕 系统优化组件
-│   ├── improved-content-handler.sh    # 安全内容处理器
-│   ├── error-handler.sh               # 智能错误诊断器
-│   ├── content-validator.sh           # 内容完整性验证器
-│   └── enhanced-collaboration.sh      # 增强协作系统
 ├── scripts/              # 迁移和验证脚本
 │   ├── migrate.sh        # 主迁移脚本
 │   ├── path-adapter.sh   # 路径适配器
 │   └── validator.sh      # 功能验证脚本
-├── templates/            # 目标项目模板
 ├── docs/                 # 使用文档和指南
 │   ├── collaboration/    # 协作会话记录
-│   │   ├── SYSTEM_OPTIMIZATION_GUIDE.md  # 🆕 系统优化指南
-│   │   └── ...
-│   ├── v0.0.1-release-report.md
+│   │   ├── index.md      # 协作会话索引
+│   │   └── YYYYMMDD-主题描述.md  # 具体的协作会话记录
+│   ├── CHANGELOG.md      # 项目更新日志
+│   ├── system_optimization_guide.md  # 🆕 系统优化指南
+│   ├── v0.1.0-optimization-guide.md  # 🆕 优化组件使用指南
+│   ├── v0.1.0-release-report.md     # 🆕 最新发布报告
 │   ├── v0.0.2-release-report.md
-│   └── v0.1.0-release-report.md         # 🆕 最新发布报告
+│   └── v0.0.1-release-report.md
 └── tests/                # 测试用例
 ```
 

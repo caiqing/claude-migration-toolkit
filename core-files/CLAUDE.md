@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+**版本**: v0.1.0 | **更新日期**: 2025-10-06
+
 ## AI协作指导原则
 
 ### 核心思维方法
@@ -153,6 +155,48 @@ graph TB
 - learning - 个性化学习
 - fusion - 跨界融合
 - evolve - 持续进化
+- ears - EARS需求描述方法
+
+## 🆕 v0.1.0 系统优化更新
+
+### 增强版协作命令系统
+推荐使用增强版命令替代原生命令，获得更好的协作体验：
+
+```bash
+# 增强版命令（推荐）
+/enhance start progressive "复杂系统分析"
+/enhance save
+/enhance health
+
+# 原生命令（兼容）
+/collaborate progressive "复杂系统分析"
+/save
+```
+
+### 核心优化特性
+- **🛡️ 内容完整性保障** - Mermaid图表、代码块100%保护
+- **🔧 智能错误处理** - 自动诊断和修复系统问题
+- **⚡ 一键式操作** - 简化用户操作流程
+- **📊 详细反馈** - 完整的操作状态和统计信息
+
+### 系统健康检查
+定期运行系统健康检查确保最佳性能：
+```bash
+./.specify/optimization/enhanced-collaboration.sh health
+```
+
+### 错误诊断工具
+遇到问题时使用智能错误诊断：
+```bash
+./.specify/optimization/error-handler.sh analyze "错误信息"
+./.specify/optimization/error-handler.sh auto-fix
+```
+
+### 内容完整性验证
+验证重要内容的完整性：
+```bash
+./.specify/optimization/content-validator.sh batch-validate
+```
 
 ## 项目概述
 
