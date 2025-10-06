@@ -346,6 +346,84 @@
 - 提供图表的交互式解释
 - 包含实际代码示例
 
+## 协作会话管理系统
+
+### 自动化知识保存功能
+
+协作会话管理系统提供完整的知识生命周期管理，自动保存和索引所有协作内容：
+
+#### 核心功能
+
+1. **智能会话跟踪**
+   - 自动生成唯一会话ID和时间戳
+   - 实时记录协作过程中的所有关键信息
+   - 支持会话状态的动态更新
+
+2. **结构化内容管理**
+   - 标准化的协作文档模板
+   - 自动分类和标签管理
+   - 版本控制和变更追踪
+
+3. **自动化索引系统**
+   - 智能关键词提取
+   - 自动更新主索引文件
+   - 支持快速检索和导航
+
+#### 使用工作流
+
+```bash
+# 初始化协作环境
+./.specify/scripts/bash/collaboration-session-automation.sh init
+
+# 开始新的协作会话
+./.specify/scripts/bash/collaboration-session-automation.sh start <范式> "<主题>"
+
+# 在协作过程中添加内容
+./.specify/scripts/bash/collaboration-session-automation.sh add-content "<内容描述>"
+./.specify/scripts/bash/collaboration-session-automation.sh add-insight "<关键洞察>"
+./.specify/scripts/bash/collaboration-session-automation.sh add-output "<产出成果>"
+
+# 查看会话状态
+./.specify/scripts/bash/collaboration-session-automation.sh status
+
+# 保存会话并更新索引
+./.specify/scripts/bash/collaboration-session-automation.sh save
+
+# 列出所有协作会话
+./.specify/scripts/bash/collaboration-session-automation.sh list
+```
+
+#### 快速启动工具
+
+```bash
+# 交互式使用
+./.specify/scripts/bash/collaboration-quick-start.sh
+
+# 指定范式
+./.specify/scripts/bash/collaboration-quick-start.sh <范式>
+
+# 完整指定
+./.specify/scripts/bash/collaboration-quick-start.sh <范式> "<主题>"
+```
+
+#### 文档结构
+
+每个协作会话自动生成包含以下内容的结构化文档：
+
+1. **会话元信息**：ID、时间、范式、参与者、主题
+2. **范式说明**：所用协作范式的核心要点和适用场景
+3. **讨论内容**：完整的对话记录和关键决策点
+4. **关键洞察**：提炼出的核心知识点和技术发现
+5. **产出成果**：具体的解决方案、架构图、代码等
+6. **行动要点**：后续执行的任务列表和改进建议
+7. **知识总结**：便于后续查阅的结构化总结
+
+#### 存储位置
+
+- **协作文档**：`docs/collaboration/YYYYMMDD-主题描述.md`
+- **主索引文件**：`docs/collaboration/index.md`
+- **会话状态文件**：临时存储在项目根目录
+
 ## 最佳实践建议
 
 ### 1. 组合使用多种范式
@@ -365,9 +443,14 @@
 - 记录有效的提问模式
 
 ### 4. 建立个人知识库
-- 将有价值的对话保存下来
-- 建立自己的问题模板
-- 定期回顾和总结
+- 使用自动化会话管理系统保存协作内容
+- 定期回顾和总结知识文档
+- 建立自己的问题模板和最佳实践
+
+### 5. 团队知识共享
+- 将协作文档纳入团队知识库
+- 定期分享有价值的洞察和发现
+- 建立跨项目的经验复用机制
 
 ## 常见问题解答
 
@@ -388,3 +471,18 @@ A: EARS方法特别适合功能需求分析、系统行为定义和测试用例�
 
 **Q: 如何确保EARS描述的完整性？**
 A: 检查每个需求是否包含了完整的四个组件（Stimulus、Event、Action、Response），并识别所有可能的边界条件和异常情况。
+
+**Q: 协作会话管理系统如何工作？**
+A: 系统自动跟踪协作过程中的所有内容，包括会话元信息、讨论内容、关键洞察和产出成果，并在会话结束时自动生成结构化文档和更新索引。
+
+**Q: 如何查看之前的协作会话记录？**
+A: 所有协作会话都保存在 `docs/collaboration/` 目录下，可以通过查看 `index.md` 索引文件快速定位需要的会话记录。
+
+**Q: 协作会话文件命名规则是什么？**
+A: 文件按 "YYYYMMDD-主题描述.md" 格式命名，基于会话开始日期和核心主题，便于时间顺序管理和内容识别。
+
+**Q: 可以手动编辑协作会话文档吗？**
+A: 可以，但建议使用自动化工具来确保文档格式的一致性。手动编辑时请保持标准结构，避免破坏索引系统。
+
+**Q: 如何备份协作知识库？**
+A: 协作文档位于 `docs/collaboration/` 目录，建议将该目录纳入版本控制，并定期备份到安全的存储位置。

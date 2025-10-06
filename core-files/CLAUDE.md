@@ -39,6 +39,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - "请用SMART框架来分析这个问题..." - 激活结构化表达
 - "帮我批判性地思考这个方案..." - 激活批判性思考
 
+或者使用斜杠命令：
+- `/collaborate first-principles "主题描述"`
+- `/collaborate visual "主题描述"`
+- `/collaborate creative "主题描述"`
+- 等等（支持所有12种协作范式）
+
+### 协作会话管理
+
+所有协作会话都会自动保存到 `docs/collaboration/` 目录，包含：
+- 完整的讨论内容和关键洞察
+- 可视化图表和架构分析
+- 结构化的知识总结
+- 自动更新的索引系统
+
+使用自动化工具管理协作会话：
+```bash
+# 快速启动协作会话
+./.specify/scripts/bash/collaboration-quick-start.sh
+
+# 查看所有协作会话
+./.specify/scripts/bash/collaboration-session-automation.sh list
+```
+
 ### 回复结构标准
 
 每个重要回复都应包含：
