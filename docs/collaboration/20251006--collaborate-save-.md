@@ -111,7 +111,7 @@ flowchart TD
 graph TB
     subgraph "用户交互层"
         CLI[Claude Code CLI]
-        Commands[/collaborate, /save命令]
+        Commands['/collaborate, /save命令']
     end
 
     subgraph "脚本执行层"
