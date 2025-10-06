@@ -23,20 +23,31 @@ TEMPLATE_FILE=".specify/templates/collaboration-session-template.md"
 ENHANCED_LOG_FILE=".collaboration-enhanced.log"
 
 # 协作范式定义
-declare -A PARADIGMS=(
-    ["creative"]="创意激发头脑风暴"
-    ["critical"]="批判性思考分析"
-    ["feynman"]="双向费曼学习法"
-    ["first-principles"]="第一性原理思维分析"
-    ["optimize"]="流程优化建议"
-    ["progressive"]="渐进式沟通（从类比到深入）"
-    ["smart"]="SMART结构化表达"
-    ["visual"]="可视化呈现（图表和流程图）"
-    ["ears"]="EARS需求描述方法（事件、条件、行动、响应）"
-    ["evolve"]="持续进化反馈"
-    ["fusion"]="跨界知识融合"
-    ["learning"]="个性化学习路径"
-)
+PARADIGM_creative="创意激发头脑风暴"
+PARADIGM_critical="批判性思考分析"
+PARADIGM_feynman="双向费曼学习法"
+PARADIGM_first_principles="第一性原理思维分析"
+PARADIGM_optimize="流程优化建议"
+PARADIGM_progressive="渐进式沟通（从类比到深入）"
+PARADIGM_smart="SMART结构化表达"
+PARADIGM_visual="可视化呈现（图表和流程图）"
+PARADIGM_ears="EARS需求描述方法（事件、条件、行动、响应）"
+PARADIGM_evolve="持续进化反馈"
+PARADIGM_fusion="跨界知识融合"
+PARADIGM_learning="个性化学习路径"
+
+# 获取范式描述的函数
+get_paradigm_description() {
+    local paradigm="$1"
+    # 将连字符替换为下划线用于变量名
+    local var_name="PARADIGM_${paradigm//-/_}"
+    echo "${!var_name}"
+}
+
+# 获取所有可用范式
+get_available_paradigms() {
+    echo "creative critical feynman first-principles optimize progressive smart visual ears evolve fusion learning"
+}
 
 # 日志函数
 log_message() {
@@ -125,13 +136,14 @@ start_collaboration_session() {
 
     if [ -z "$paradigm" ]; then
         echo -e "${RED}❌ 请指定协作范式${NC}"
-        echo -e "${YELLOW}可用范式: ${!PARADIGMS[*]}${NC}"
+        echo -e "${YELLOW}可用范式: $(get_available_paradigms)${NC}"
         return 1
     fi
 
-    if [ -z "${PARADIGMS[$paradigm]}" ]; then
+    local paradigm_description=$(get_paradigm_description "$paradigm")
+    if [ -z "$paradigm_description" ]; then
         echo -e "${RED}❌ 未知的协作范式: $paradigm${NC}"
-        echo -e "${YELLOW}可用范式: ${!PARADIGMS[*]}${NC}"
+        echo -e "${YELLOW}可用范式: $(get_available_paradigms)${NC}"
         return 1
     fi
 
@@ -169,7 +181,6 @@ start_collaboration_session() {
     # 生成会话信息
     local session_id="session-$(date '+%Y%m%d-%H%M%S')"
     local date=$(date '+%Y-%m-%d %H:%M:%S')
-    local paradigm_description="${PARADIGMS[$paradigm]}"
 
     # 创建会话状态文件
     cat > "$SESSION_STATE_FILE" << EOF
@@ -223,7 +234,7 @@ record_message() {
 
     # 更新消息计数
     source "$SESSION_STATE_FILE"
-    ((MESSAGE_COUNT++))
+    MESSAGE_COUNT=$((MESSAGE_COUNT + 1))
     sed -i '' "s/MESSAGE_COUNT=.*/MESSAGE_COUNT=$MESSAGE_COUNT/" "$SESSION_STATE_FILE"
 
     log_message "INFO" "记录消息: $role, 长度: ${#content}"
@@ -232,27 +243,32 @@ record_message() {
 # 智能总结生成
 generate_ai_summary() {
     local conversation_file="$1"
-    local session_info="$2"
+    local date="$2"
+    local paradigm="$3"
+    local paradigm_description="$4"
+    local topic="$5"
+    local duration="$6"
+    local message_count="$7"
 
     # 统计对话信息
-    local message_count=$(grep -c "^\*\*\[0-9" "$conversation_file" || echo "0")
+    local msg_count=$(grep -c "^\*\*\[0-9" "$conversation_file" || echo "$message_count")
     local word_count=$(wc -w < "$conversation_file" || echo "0")
 
     # 基于内容生成智能总结（模拟AI分析）
     cat << EOF
 ### 会话统计分析
-- **消息总数**: $message_count 条
+- **消息总数**: $msg_count 条
 - **内容规模**: $word_count 字
-- **会话时长**: ${session_info["DURATION"]}
-- **协作范式**: ${session_info["PARADIGM"]} (${session_info["PARADIGM_DESCRIPTION"]})
+- **会话时长**: $duration
+- **协作范式**: $paradigm ($paradigm_description)
 
 ### 核心内容概要
-- 主要讨论了 **${session_info["TOPIC"]}** 相关的议题
-- 运用了 **${session_info["PARADIGM_DESCRIPTION"]}** 的协作方法
+- 主要讨论了 **$topic** 相关的议题
+- 运用了 **$paradigm_description** 的协作方法
 - 涵盖了技术分析、方案设计和实施建议等核心内容
 
 ### 关键洞察提炼
-1. **方法论应用**: 通过${session_info["PARADIGM"]}范式，实现了问题的系统性分析
+1. **方法论应用**: 通过$paradigm范式，实现了问题的系统性分析
 2. **技术深度**: 涉及了底层原理和实践应用的结合
 3. **解决方案**: 提供了可行的实施路径和具体建议
 
@@ -289,17 +305,30 @@ save_collaboration_session() {
     # 读取会话信息
     source "$SESSION_STATE_FILE"
 
-    # 计算会话时长
-    local start_time=$(date -j -f "%Y-%m-%d %H:%M:%S" "$DATE" +%s 2>/dev/null || echo "0")
-    local current_time=$(date +%s)
-    local duration=$((current_time - start_time))
-    local duration_str=""
-    if [ $duration -gt 3600 ]; then
-        duration_str="$((duration / 3600))小时$(( (duration % 3600) / 60 ))分钟"
-    elif [ $duration -gt 60 ]; then
-        duration_str="$((duration / 60))分钟$((duration % 60))秒"
-    else
-        duration_str="${duration}秒"
+    # 计算会话时长（简化版本，兼容不同系统）
+    local current_time=$(date '+%Y-%m-%d %H:%M:%S')
+    local duration_str="会话进行中"
+
+    # 尝试计算时长（如果支持date命令的话）
+    if command -v python3 >/dev/null 2>&1; then
+        local duration_seconds=$(python3 -c "
+from datetime import datetime
+try:
+    start = datetime.strptime('$DATE', '%Y-%m-%d %H:%M:%S')
+    current = datetime.strptime('$current_time', '%Y-%m-%d %H:%M:%S')
+    duration = (current - start).total_seconds()
+    if duration > 3600:
+        print(f'{int(duration//3600)}小时{int((duration%3600)//60)}分钟')
+    elif duration > 60:
+        print(f'{int(duration//60)}分钟{int(duration%60)}秒')
+    else:
+        print(f'{int(duration)}秒')
+except:
+    print('会话进行中')
+" 2>/dev/null)
+        if [ "$duration_seconds" != "会话进行中" ]; then
+            duration_str="$duration_seconds"
+        fi
     fi
 
     # 读取对话内容
@@ -309,16 +338,7 @@ save_collaboration_session() {
     fi
 
     # 生成AI总结
-    local session_info=(
-        ["DATE"]="$DATE"
-        ["PARADIGM"]="$PARADIGM"
-        ["PARADIGM_DESCRIPTION"]="$PARADIGM_DESCRIPTION"
-        ["TOPIC"]="$TOPIC"
-        ["DURATION"]="$duration_str"
-        ["MESSAGE_COUNT"]="$MESSAGE_COUNT"
-    )
-
-    local ai_summary=$(generate_ai_summary "$CONVERSATION_BUFFER_FILE" session_info)
+    local ai_summary=$(generate_ai_summary "$CONVERSATION_BUFFER_FILE" "$DATE" "$PARADIGM" "$PARADIGM_DESCRIPTION" "$TOPIC" "$duration_str" "$MESSAGE_COUNT")
 
     # 提取关键词
     local keywords=$(extract_keywords "$conversation_content")
@@ -505,8 +525,9 @@ show_help() {
     echo "  help                        - 显示此帮助信息"
     echo
     echo "协作范式:"
-    for paradigm in "${!PARADIGMS[@]}"; do
-        echo "  $paradigm - ${PARADIGMS[$paradigm]}"
+    for paradigm in $(get_available_paradigms); do
+        local description=$(get_paradigm_description "$paradigm")
+        echo "  $paradigm - $description"
     done
     echo
     echo "示例:"
