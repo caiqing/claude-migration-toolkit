@@ -86,7 +86,7 @@ flowchart TD
     CheckEnd -->|否| ContinueRecord[继续记录]
     ContinueRecord --> Conversation
 
-    CheckEnd -->|是| UserSave[/save命令]
+    CheckEnd -->|是| UserSave[save命令]
 
     UserSave --> AnalyzeContent[智能内容分析]
     AnalyzeContent --> ExtractKeywords[关键词提取]
