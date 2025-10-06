@@ -3,18 +3,29 @@
 使用方法：
 /collaborate [范式名称] [主题描述]
 
-**自动化知识保存**：协作会话支持自动保存功能，使用内置的协作会话管理系统自动记录完整的讨论内容、关键洞察和行动要点到 `docs/collaboration/` 目录。
+**🚀 全新增强版本**：现在支持一键式协作会话启动和自动对话记录！
 
-**自动化工具**：
+**核心特性**：
 
-- 会话开始时自动创建状态跟踪
-- 支持实时添加内容、洞察、成果和行动要点
-- 会话结束时自动生成结构化文档
+- **一键启动**：自动创建协作会话并开始记录
+- **智能捕获**：自动记录所有用户输入和AI回复
+- **实时状态**：持续跟踪会话进度和消息数量
+- **智能总结**：基于实际对话内容生成AI分析总结
+- **关键词提取**：自动识别技术术语和核心概念
+- **无缝切换**：支持会话中断后的自动恢复
+
+**自动化工作流**：
+
+- 会话开始时自动创建状态跟踪和文档模板
+- **自动记录完整的用户-AI交互对话**
+- 智能分析和总结协作内容
+- 自动生成结构化Markdown文档
 - 自动更新索引文件便于查阅
 
 ## 可用的协作范式
 
 ### 基础协作范式
+
 - **creative** - 创意激发头脑风暴
 - **critical** - 批判性思考分析
 - **feynman** - 双向费曼学习法
@@ -25,35 +36,48 @@
 - **visual** - 可视化呈现（图表和流程图）
 
 ### 高级协作范式
+
 - **ears** - EARS需求描述方法（事件、条件、行动、响应）
 - **evolve** - 持续进化反馈
 - **fusion** - 跨界知识融合
 - **learning** - 个性化学习路径
 
-## 自动化工作流
+## 🚀 简化的使用流程
 
-### 完整的协作会话管理
+### 基本用法（推荐）
 
 ```bash
-# 1. 初始化协作环境（首次使用）
-./.specify/scripts/bash/collaboration-session-automation.sh init
+# 1. 一键启动协作会话
+/collaborate first-principles "数据库性能优化分析"
 
-# 2. 开始新的协作会话
-./.specify/scripts/bash/collaboration-session-automation.sh start first-principles "数据库性能优化分析"
+# 2. 进行正常的对话交互（系统自动记录）
+# 用户：请用第一性原理分析数据库查询优化
+# AI：让我们从基础原理开始分析...
 
-# 3. 在协作过程中添加内容
-./.specify/scripts/bash/collaboration-session-automation.sh add-content "讨论了索引策略和查询优化"
-./.specify/scripts/bash/collaboration-session-automation.sh add-insight "索引是空间换时间的权衡"
-./.specify/scripts/bash/collaboration-session-automation.sh add-output "完成了索引优化方案设计"
+# 3. 保存会话（一键完成所有文档工作）
+/save
+```
 
-# 4. 查看当前会话状态
-./.specify/scripts/bash/collaboration-session-automation.sh status
+### 增强版工具（可选）
 
-# 5. 保存会话并自动更新索引
-./.specify/scripts/bash/collaboration-session-automation.sh save
+如需更多控制，可以使用增强版工具：
 
-# 6. 列出所有协作会话
-./.specify/scripts/bash/collaboration-session-automation.sh list
+```bash
+# 启动新的协作会话
+./.specify/scripts/bash/collaboration-enhanced.sh start first-principles "数据库性能优化"
+
+# 手动记录消息（可选，系统通常会自动处理）
+./.specify/scripts/bash/collaboration-enhanced.sh message user "你的问题"
+./.specify/scripts/bash/collaboration-enhanced.sh message assistant "AI的回复"
+
+# 查看当前会话状态
+./.specify/scripts/bash/collaboration-enhanced.sh status
+
+# 保存会话
+./.specify/scripts/bash/collaboration-enhanced.sh save
+
+# 列出所有协作会话
+./.specify/scripts/bash/collaboration-enhanced.sh list
 ```
 
 ### 使用示例
@@ -73,29 +97,30 @@
 /collaborate fusion "结合AI和区块链技术设计解决方案"
 ```
 
-### 快速启动工具
+### 新增功能特性
 
-对于更便捷的协作体验，可以使用快速启动工具：
+#### 🤖 智能会话管理
 
-```bash
-# 交互式选择范式和输入主题
-./.specify/scripts/bash/collaboration-quick-start.sh
+- **自动会话检测**：系统自动识别是否已有活跃会话
+- **会话恢复机制**：支持中断后的会话继续
+- **智能状态跟踪**：实时显示会话进度和统计信息
+- **冲突处理**：提供多种会话切换选项
 
-# 指定范式，交互式输入主题
-./.specify/scripts/bash/collaboration-quick-start.sh first-principles
+#### 📊 增强的分析功能
 
-# 直接指定范式和主题
-./.specify/scripts/bash/collaboration-quick-start.sh creative "新产品功能头脑风暴"
-```
+- **对话统计分析**：消息数量、内容规模、会话时长
+- **协作范式应用分析**：评估所选用协作范式的效果
+- **核心内容概要**：基于实际内容提炼主要议题
+- **关键洞察提炼**：自动识别重要观点和结论
+- **协作价值评估**：从知识深度、实践指导、创新思维三个维度评估
+- **后续建议**：基于协作内容提供个性化建议
 
-### 自动化功能特性
+#### 🔤 智能关键词提取
 
-- **智能会话管理**：自动生成唯一会话ID和时间戳
-- **结构化内容**：使用标准模板确保文档一致性
-- **实时状态跟踪**：记录会话过程中的所有关键信息
-- **自动索引更新**：保存后自动更新索引文件
-- **模板化输出**：生成符合标准的协作文档格式
-- **一键式操作**：支持快速启动和简化工作流
+- **技术关键词**：自动识别技术术语和概念
+- **通用概念关键词**：提取方法论和流程相关词汇
+- **协作范式关键词**：标记使用的协作范式
+- **词频统计**：生成词频统计和关键词云
 
 ## 知识保存机制
 
@@ -103,11 +128,12 @@
 
 1. **会话元信息**：时间、范式、参与者、主题
 2. **范式说明**：所用协作范式的核心要点
-3. **讨论内容**：完整的对话记录
+3. **完整对话记录**：所有用户消息和AI回复的完整记录
 4. **关键洞察**：提炼出的核心知识点
 5. **产出成果**：具体的解决方案和决策
-6. **行动要点**：后续执行的任务列表
-7. **知识总结**：便于后续查阅的结构化总结
+6. **AI智能总结**：基于实际内容生成的智能分析总结
+7. **关键词提取**：自动提取的关键技术词汇和概念
+8. **行动要点**：后续执行的任务列表
 
 保存位置：`docs/collaboration/YYYYMMDD-主题描述.md`
 
