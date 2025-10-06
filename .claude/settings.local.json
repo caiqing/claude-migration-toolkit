@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.specify/scripts/bash/check-prerequisites.sh:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx tsc:*)",
+      "Bash(./.specify/scripts/bash/collaboration-session-automation.sh:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(chmod:*)",
+      "Bash(./verify-migration.sh:*)",
+      "Bash(./.specify/scripts/bash/collaboration-recorder.sh:*)",
+      "Bash(./.specify/scripts/bash/collaboration-enhanced.sh:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
