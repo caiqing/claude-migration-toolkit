@@ -45,7 +45,7 @@ Claude标准迁移工具
   $0 --verbose --skip-git-hooks ./new-project # 详细输出，跳过hooks
 
 迁移组件:
-  ✅ AI协作核心 (CLAUDE.md + /collaborate + /enhance命令)
+  ✅ AI协作核心 (CLAUDE.md + /collaborate + /enhance + /save命令)
   ✅ 智能分支命名系统 (2个脚本)
   ✅ Git自动化系统 (3个脚本)
   ✅ AI协作指南 (1个模板)
@@ -229,6 +229,14 @@ migrate_ai_collaboration_core() {
         log_warning "enhance.md文件不存在，跳过增强版命令安装"
     fi
 
+    # 复制save命令（保存协作会话）
+    if [ -f "$MIGRATION_ROOT/core-files/save.md" ]; then
+        execute_file_operation "copy" "$MIGRATION_ROOT/core-files/save.md" "$TARGET_PROJECT/.claude/commands/save.md"
+        log_info "复制save.md命令文件"
+    else
+        log_warning "save.md文件不存在，跳过保存命令安装"
+    fi
+
     log_success "AI协作核心迁移完成"
 }
 
@@ -372,7 +380,7 @@ show_migration_summary() {
     echo
     echo -e "${CYAN}📊 迁移统计:${NC}"
     echo -e "  📁 目标项目: $TARGET_PROJECT"
-    echo -e "  📄 复制文件: 9个核心文件（包含enhance.md）"
+    echo -e "  📄 复制文件: 10个核心文件（包含enhance.md和save.md）"
     echo -e "  📂 创建目录: .claude/, .specify/, docs/"
     echo -e "  🔧 设置权限: 脚本执行权限"
 
@@ -386,6 +394,7 @@ show_migration_summary() {
     echo -e "${CYAN}🚀 迁移后功能:${NC}"
     echo -e "  🤖 AI协作: /collaborate [范式名称]"
     echo -e "  ⚡ 增强协作: /enhance [start|save|health]"
+    echo -e "  💾 保存会话: /save"
     echo -e "  🌱 智能分支: create-new-feature.sh [描述]"
     echo -e "  📝 自动更新: Git提交时自动更新CHANGELOG"
     echo -e "  📚 使用指南: docs/ai-collaboration-guide.md"
@@ -426,7 +435,8 @@ main() {
         echo -e "  1. 验证迁移结果: $SCRIPT_DIR/validator.sh $TARGET_PROJECT"
         echo -e "  2. 尝试AI协作: cd $TARGET_PROJECT && /collaborate help"
         echo -e "  3. 体验增强协作: cd $TARGET_PROJECT && /enhance help"
-        echo -e "  4. 创建新功能: cd $TARGET_PROJECT && ./.specify/scripts/bash/create-new-feature.sh '测试功能'"
+        echo -e "  4. 测试保存功能: cd $TARGET_PROJECT && /save"
+        echo -e "  5. 创建新功能: cd $TARGET_PROJECT && ./.specify/scripts/bash/create-new-feature.sh '测试功能'"
     fi
 }
 
