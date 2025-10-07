@@ -17,11 +17,25 @@
 
 ## 🚀 快速开始
 
-### 一键迁移
+### Step 1. 安装 specify-cli
+```bash
+uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
+```
+### Step 2. specify 初始化（从最新模板初始化制定项目）
+```bash
+specify init <PROJECT_NAME>
+```
+### Step 3. 制定项目原则（基本法），创建或更新项目管理原则和开发指南，以指导所有后续开发
+```bash
+/constitution Create principles focused on code quality, testing standards, user experience consistency, and performance requirements
+```
 
+### Step 4. 使用本项目，完成AI协作增强能力一键迁移
 ```bash
 # 克隆仓库
 git clone https://github.com/caiqing/claude-migration-toolkit.git
+
+# 进入工具目录
 cd claude-migration-toolkit
 
 # 运行主迁移脚本
