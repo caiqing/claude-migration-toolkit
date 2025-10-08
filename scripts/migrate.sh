@@ -330,6 +330,35 @@ migrate_templates() {
     log_success "模板文件迁移完成"
 }
 
+# 迁移系统优化组件
+migrate_optimization_components() {
+    log_step "迁移系统优化组件"
+
+    # 创建optimization目录
+    execute_file_operation "mkdir" "$TARGET_PROJECT/.specify/optimization"
+
+    # 复制optimization脚本
+    if [ -d "$MIGRATION_ROOT/core-files/optimization" ]; then
+        for opt_file in "$MIGRATION_ROOT/core-files/optimization"/*; do
+            if [ -f "$opt_file" ]; then
+                filename=$(basename "$opt_file")
+                execute_file_operation "copy" "$opt_file" "$TARGET_PROJECT/.specify/optimization/$filename"
+                # 如果是脚本文件，设置执行权限
+                if [[ "$filename" == *.sh ]]; then
+                    if [ "$DRY_RUN" = false ]; then
+                        chmod +x "$TARGET_PROJECT/.specify/optimization/$filename"
+                    fi
+                    execute_file_operation "chmod" "$opt_file" "$TARGET_PROJECT/.specify/optimization/$filename"
+                fi
+                log_info "复制optimization组件: $filename"
+            fi
+        done
+        log_success "系统优化组件迁移完成"
+    else
+        log_warning "optimization组件目录不存在，跳过迁移"
+    fi
+}
+
 # 运行路径适配器
 run_path_adapter() {
     log_step "运行路径适配器"
@@ -385,6 +414,7 @@ show_migration_summary() {
     echo -e "  📄 复制文件: 8个核心文件（ai.collab.md + speckit.*命令）"
     echo -e "  📂 创建目录: .claude/, .specify/, docs/"
     echo -e "  🔧 设置权限: 脚本执行权限"
+    echo -e "  ⚡ 系统优化: 5个optimization组件"
 
     if [ "$SKIP_GIT_HOOKS" = false ]; then
         echo -e "  🎣 Git hooks: 已安装"
@@ -400,6 +430,7 @@ show_migration_summary() {
     echo -e "  🌱 智能分支命名: create-new-feature.sh [描述]"
     echo -e "  📝 自动CHANGELOG: Git提交时自动更新"
     echo -e "  📚 AI协作指南: docs/ai-collaboration-guide.md"
+    echo -e "  ⚡ 系统优化: 增强版协作、错误处理、内容验证"
 
     echo
     echo -e "${GREEN}✨ 迁移完成！现在可以使用Claude AI协作功能了${NC}"
@@ -427,6 +458,7 @@ main() {
     migrate_git_automation
     migrate_ai_collaboration_guide
     migrate_templates
+    migrate_optimization_components
     run_path_adapter
     install_git_hooks
     show_migration_summary
@@ -439,6 +471,7 @@ main() {
         echo -e "  3. 启动创意协作: cd $TARGET_PROJECT && /ai.collab start creative '产品创新'"
         echo -e "  4. 测试规格驱动: cd $TARGET_PROJECT && /speckit.specify '用户认证系统'"
         echo -e "  5. 创建智能分支: cd $TARGET_PROJECT && ./.specify/scripts/bash/create-new-feature.sh '实现新功能'"
+        echo -e "  6. 系统优化工具: cd $TARGET_PROJECT && ./.specify/optimization/enhanced-collaboration.sh health"
     fi
 }
 
