@@ -14,7 +14,9 @@
       "Bash(bash:*)",
       "Bash(./core-files/collaboration-enhanced.sh:*)",
       "Bash(timeout:*)",
-      "Bash(./scripts/simple-command-test.sh:*)"
+      "Bash(./scripts/migrate.sh:*)",
+      "Bash(./scripts/validator.sh:*)",
+      "Bash(./scripts/path-adapter.sh:*)"
     ],
     "deny": [],
     "ask": []
