@@ -44,20 +44,22 @@ SDD 将需求变化从障碍转变为常规工作流程。当规格驱动实现�
 
 ## 使用命令简化 SDD
 SDD 方法论通过三个强大的命令显著增强，这些命令自动化了规范制定→规划→任务分配的工作流程：
-/specify
+`/speckit.specify`
 此命令将一个简单的功能描述（用户提示）转换为一个完整、结构化的规范，并自动管理代码库
   - 自动功能编号：扫描现有规范以确定下一个功能编号（例如，001、002、003）
   - 分支创建：根据您的描述生成语义分支名称并自动创建
   - 基于模板生成：根据您的需求复制并定制功能规范模板
   - 目录结构化：为所有相关文档创建正确的 specs/[branch-name]/ 结构
-/plan
+
+`/speckit.plan`
 一旦存在功能规范，此命令将创建一个全面的实施计划
   - 规格分析：读取并理解功能需求、用户故事和验收标准
   - 宪法合规性：确保与项目宪法和架构原则保持一致
   - 技术翻译：将业务需求转换为技术架构和实现细节
   - 详细文档：生成数据模型、API 合约和测试场景的辅助文档
   - 快速验证：生成快速启动指南，以涵盖关键验证场景
-/tasks
+
+`/speckit.tasks`
 创建计划后，此命令分析计划及相关设计文档以生成可执行任务列表
   - 输入：读取 plan.md （必需），如果存在，则读取 data-model.md 、 contracts/ 和 research.md
   - 任务推导：将合约、实体和场景转换为具体任务
@@ -76,24 +78,29 @@ SDD 方法论通过三个强大的命令显著增强，这些命令自动化了�
 
 ### 基于命令的 SDD 方法
 1. 创建功能规范（5分钟）
-/specify 具有消息历史记录和用户在线状态的实时聊天系统
+/speckit.specify 具有消息历史记录和用户在线状态的实时聊天系统
 这会自动执行以下操作：
+```
   - 创建分支“003-chat-system”
   - 生成 specs/003-chat-system/spec.md 文件
   - 向该文件填充结构化需求
+```
 
 2. 生成实施计划（5分钟）
-/plan WebSocket用于实时消息传递，PostgreSQL用于历史记录，Redis用于在线状态
+/speckit.plan WebSocket用于实时消息传递，PostgreSQL用于历史记录，Redis用于在线状态
+
 
 3. 生成可执行任务（5分钟）
-/tasks
+/speckit.tasks
 这会自动创建：
+```
   - specs/003-chat-system/plan.md
   - specs/003-chat-system/research.md（WebSocket库对比）
   - specs/003-chat-system/data-model.md（消息和用户schemas）
   - specs/003-chat-system/contracts/（WebSocket事件、REST端点）
   - specs/003-chat-system/quickstart.md（关键验证场景）
   - specs/003-chat-system/tasks.md（源自计划的任务列表）
+```
 
 在 15 分钟内，你将拥有：
   - 一个包含用户故事和验收标准的完整功能规格
