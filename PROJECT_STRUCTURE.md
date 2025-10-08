@@ -28,9 +28,10 @@ claude-migration-toolkit/
 ├── docs/
 │   ├── collaboration/    # AI协作会话记录
 │   └── reports/          # 迁移报告
-│       ├── AI_COLLAB_COMMAND_SIMPLIFICATION_REPORT.md
-│       ├── FINAL_COMMAND_ARCHITECTURE.md
-│       └── SPECKIT_MIGRATION_REPORT.md
+│       ├── ai_collab_command_simplification_report.md
+│       ├── final_command_architecture.md
+│       ├── speckit_migration_report.md
+│       └── v0.1.0_final_release_report.md
 ├── scripts/              # 主要脚本
 │   ├── migrate.sh        # 主迁移脚本 ⭐
 │   ├── validator.sh      # 验证脚本 ⭐
