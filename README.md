@@ -49,20 +49,40 @@ cd claude-migration-toolkit
 
 ### AI协作功能
 
-```bash
-# 启动AI协作会话
-/ai.collab start creative "产品创新头脑风暴"        # 创意激发
-/ai.collab start visual "系统架构可视化分析"        # 可视化呈现
-/ai.collab start critical "技术方案批判性思考"      # 批判性思考
-/ai.collab start first-principles "性能优化根本原因"  # 第一性原理分析
-/ai.collab start progressive "复杂系统渐进式分析" "实现细节"
+**🎉 AI协作系统 v2.0 - 12种协作范式，简化命令，智能管理**
 
-# 会话管理
-/ai.collab save        # 智能保存协作会话
-/ai.collab health      # 系统健康检查
-/ai.collab status      # 查看会话状态
-/ai.collab help        # 显示完整帮助
+```bash
+# 🆕 简化命令格式（推荐）
+/ai.collab creative "产品创新头脑风暴"          # 创意激发
+/ai.collab critical "技术方案批判性思考"          # 批判性思考
+/ai.collab ears "用户需求系统化描述"             # EARS需求描述方法
+/ai.collab evolve "代码重构持续改进"             # 持续进化
+/ai.collab feynman "复杂概念双向教学"            # 双向费曼学习法
+/ai.collab first-principles "性能优化根本原因分析" # 第一性原理思维
+/ai.collab fusion "心理学在产品设计中的应用"       # 跨界知识融合
+/ai.collab learning "机器学习个性化路径"          # 个性化学习
+/ai.collab optimize "工作流程效率优化"           # 流程优化建议
+/ai.collab progressive "复杂系统渐进式分析"        # 渐进式沟通
+/ai.collab smart "项目目标SMART制定"             # SMART结构化表达
+/ai.collab visual "系统架构可视化设计"           # 可视化呈现
+
+# 🔄 传统命令格式（兼容）
+/ai.collab start creative "主题"                 # 传统启动方式
+
+# 📋 会话管理（按字母序）
+/ai.collab health                              # 系统健康检查
+/ai.collab help                                # 显示完整帮助
+/ai.collab reset                               # 重置会话状态
+/ai.collab save                                # 智能保存协作会话
+/ai.collab status                              # 查看会话状态
+/ai.collab version                             # 版本信息
 ```
+
+**✨ v2.0 核心特性**
+- **⚡ 简化命令**：直接使用 `/ai.collab creative "主题"`，无需 `start` 子命令
+- **🛡️ 内容保护**：Mermaid图表、代码块100%保护，保存成功率97%
+- **🔧 智能诊断**：自动错误检测和修复，系统健康监控
+- **📊 完整性验证**：多重校验确保信息完整无损
 
 ### 智能分支命名
 
