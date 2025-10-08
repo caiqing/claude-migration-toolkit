@@ -334,3 +334,34 @@ style H fill:#e1f5fe,color:#000
 style I fill:#fff0f0,color:#000
 
 ```
+
+```bash
+# Step 0. 全局安装，工具管理（uv tool list，uv tool upgrade, uv tool uninstall）
+uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
+
+# Step 1. specify 初始化，从最新模板初始化新的指定项目
+specify init <PROJECT_NAME>
+# 检查已安装的工具（git, claude, gemini, code/code-insiders, cursor-agent, windsurf, qwen, opencode, codex）
+specify check
+
+# Step 2. 制定项目原则（基本法），创建或更新项目管理原则和开发指南，以指导所有后续开发
+/speckit.constitution Create principles focused on code quality, testing standards, user experience consistency, and performance requirements
+
+# Step 3. 创建规范，定义您想要构建的内容（需求和用户故事），重点在于“是什么”和“为什么”，而不是技术栈
+/speckit.specify Build an application that can help me organize my photos in separate photo albums. Albums are grouped by date and can be re-organized by dragging and dropping on the main page. Albums are never in other nested albums. Within each album, photos are previewed in a tile-like interface.
+
+# Step 4. 澄清未指定的区域（除非明确跳过，否则必须运行在 /speckit.plan 之前）
+/speckit.clarify
+
+# Step 5. 提供您的技术栈和架构选择，并制定技术实施计划
+/speckit.plan The application uses Vite with minimal number of libraries. Use vanilla HTML, CSS, and JavaScript as much as possible. Images are not uploaded anywhere and metadata is stored in a local SQLite database.
+
+# Step 6. 生成可执行的任务列表以供实施（分解任务，根据实施计划创建可操作的任务列表）
+/speckit.tasks
+
+# Step 7. 跨工件一致性和覆盖率分析（在 /speckit.tasks 之后 /speckit.implement 之前运行）
+/speckit.analyze
+
+# Step 8. 任务实现：执行所有任务并按计划构建功能
+/speckit.implement
+```
