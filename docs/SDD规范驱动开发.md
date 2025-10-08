@@ -290,3 +290,40 @@ Modifications to this constitution require:
 ## 转换
 这并非要取代开发者或自动化创造力。它通过自动化机械翻译来增强人类能力。它旨在创建一个紧密的反馈循环，其中规范、研究和代码共同演进，每一次迭代都带来更深入的理解和意图与实现之间更好的对齐。
 软件开发需要更好的工具来维护意图与实现之间的对齐。SDD 通过可执行的规范来生成代码，而不是仅仅指导它，从而提供了实现这种对齐的方法论。
+
+## 用法指南
+```mermaid
+%% Spec-kit Workflow
+
+flowchart TD
+    A[Step 1: 初始化<br>specify init 'PROJECT_NAME'] --> B[工具检查<br/>specify check<br>检查 git, claude code, gemini-cli, VS Code, cursor, windsurf, qwencode, codex]
+    B --> C[Step 2: 制定项目原则<br>（基本法）<br>/speckit.constitution<br>聚焦代码质量、测试标准、用户体验一致性、性能要求]
+    
+
+subgraph R[开发循环]
+    D[Step 3: 创建规范<br>（需求与用户故事）<br>/speckit.specify<br>定义是什么和为什么]
+    D --> E[Step 4: 澄清未指定区域<br>/speckit.clarify<br>在 /speckit.plan 前运行，除非明确跳过]
+    E --> F[Step 5: 技术栈与架构选择<br>/speckit.plan<br>制定技术实施方案]
+    F --> G[Step 6: 生成可执行任务清单<br>/speckit.tasks<br>按照实施计划分解任务]
+    G --> H[Step 7: 跨工件一致性与覆盖率分析<br>/speckit.analyze]
+    H --> I[Step 8: 任务实现与功能构建<br>/speckit.implement]
+end
+    I --> J[Create PR / Merge]
+    J -. 开发新功能 .-> D
+    C --> D
+
+    %% 迭代回路：在实现后可能回到澄清与计划
+    I -. 迭代优化 .-> E
+
+%% 样式
+style A fill:#f5f5f5,color:#000
+style B fill:#e3f2fd,color:#000
+style C fill:#fff5e6,color:#000
+style D fill:#e8f5e9,color:#000
+style E fill:#e3f2fd,color:#000
+style F fill:#fff3e0,color:#000
+style G fill:#f5f0ff,color:#000
+style H fill:#e1f5fe,color:#000
+style I fill:#fff0f0,color:#000
+
+```
