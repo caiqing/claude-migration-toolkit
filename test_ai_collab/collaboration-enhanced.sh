@@ -671,7 +671,7 @@ show_health_status() {
 
     echo
     echo -e "${BLUE}🎯 12种协作范式可用${NC}"
-    echo -e "${CYAN}$(get_available_paradigms | tr ' ' '\n' | head -c 100)...${NC}"
+    echo -e "${CYAN}$(get_available_paradigms | tr ' ' ' | head -c 100)...${NC}"
 }
 
 # 重置会话状态

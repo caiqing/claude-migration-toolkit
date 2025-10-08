@@ -50,18 +50,16 @@ cd claude-migration-toolkit
 ### AI协作功能
 
 ```bash
-# 启动AI协作会话
-/ai.collab start creative "产品创新头脑风暴"        # 创意激发
-/ai.collab start visual "系统架构可视化分析"        # 可视化呈现
-/ai.collab start critical "技术方案批判性思考"      # 批判性思考
-/ai.collab start first-principles "性能优化根本原因"  # 第一性原理分析
-/ai.collab start progressive "复杂系统渐进式分析" "实现细节"
+# 启动协作会话
+/collaborate visual    # 可视化呈现
+/collaborate creative  # 创意激发
+/collaborate critical  # 批判性思考
+/collaborate first-principles  # 第一性原理分析
 
-# 会话管理
-/ai.collab save        # 智能保存协作会话
-/ai.collab health      # 系统健康检查
-/ai.collab status      # 查看会话状态
-/ai.collab help        # 显示完整帮助
+# 使用增强版命令（推荐）
+/enhance start progressive "系统架构分析"
+/enhance save
+/enhance health
 ```
 
 ### 智能分支命名

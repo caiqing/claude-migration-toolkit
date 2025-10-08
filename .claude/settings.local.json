@@ -10,7 +10,11 @@
       "Bash(chmod:*)",
       "Bash(./verify-migration.sh:*)",
       "Bash(./.specify/scripts/bash/collaboration-recorder.sh:*)",
-      "Bash(./.specify/scripts/bash/collaboration-enhanced.sh:*)"
+      "Bash(./.specify/scripts/bash/collaboration-enhanced.sh:*)",
+      "Bash(bash:*)",
+      "Bash(./core-files/collaboration-enhanced.sh:*)",
+      "Bash(timeout:*)",
+      "Bash(./scripts/simple-command-test.sh:*)"
     ],
     "deny": [],
     "ask": []

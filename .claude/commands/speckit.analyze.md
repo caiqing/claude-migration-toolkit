@@ -8,25 +8,25 @@ User input:
 
 $ARGUMENTS
 
-Goal: Identify inconsistencies, duplications, ambiguities, and underspecified items across the three core artifacts (`spec.md`, `plan.md`, `tasks.md`) before implementation. This command MUST run only after `/tasks` has successfully produced a complete `tasks.md`.
+Goal: Identify inconsistencies, duplications, ambiguities, and underspecified items across the three core artifacts (`spec.md`, `plan.md`, `tasks.md`) before implementation. This command MUST run only after `/speckit.tasks` has successfully produced a complete `tasks.md`.
 
 STRICTLY READ-ONLY: Do **not** modify any files. Output a structured analysis report. Offer an optional remediation plan (user must explicitly approve before any follow-up editing commands would be invoked manually).
 
-Constitution Authority: The project constitution (`.specify/memory/constitution.md`) is **non-negotiable** within this analysis scope. Constitution conflicts are automatically CRITICAL and require adjustment of the spec, plan, or tasks—not dilution, reinterpretation, or silent ignoring of the principle. If a principle itself needs to change, that must occur in a separate, explicit constitution update outside `/analyze`.
+Constitution Authority: The project constitution (`.specify/memory/speckit.constitution.md`) is **non-negotiable** within this analysis scope. Constitution conflicts are automatically CRITICAL and require adjustment of the spec, plan, or tasks—not dilution, reinterpretation, or silent ignoring of the principle. If a principle itself needs to change, that must occur in a separate, explicit constitution update outside `/speckit.analyze`.
 
 Execution steps:
 
 1. Run `.specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks` once from repo root and parse JSON for FEATURE_DIR and AVAILABLE_DOCS. Derive absolute paths:
    - SPEC = FEATURE_DIR/spec.md
-   - PLAN = FEATURE_DIR/plan.md
-   - TASKS = FEATURE_DIR/tasks.md
+   - PLAN = FEATURE_DIR/speckit.plan.md
+   - TASKS = FEATURE_DIR/speckit.tasks.md
    Abort with an error message if any required file is missing (instruct the user to run missing prerequisite command).
 
 2. Load artifacts:
    - Parse spec.md sections: Overview/Context, Functional Requirements, Non-Functional Requirements, User Stories, Edge Cases (if present).
    - Parse plan.md: Architecture/stack choices, Data Model references, Phases, Technical constraints.
    - Parse tasks.md: Task IDs, descriptions, phase grouping, parallel markers [P], referenced file paths.
-   - Load constitution `.specify/memory/constitution.md` for principle validation.
+   - Load constitution `.specify/memory/speckit.constitution.md` for principle validation.
 
 3. Build internal semantic models:
    - Requirements inventory: Each functional + non-functional requirement with a stable key (derive slug based on imperative phrase; e.g., "User can upload file" -> `user-can-upload-file`).
@@ -43,7 +43,7 @@ Execution steps:
    C. Underspecification:
       - Requirements with verbs but missing object or measurable outcome.
       - User stories missing acceptance criteria alignment.
-      - Tasks referencing files or components not defined in spec/plan.
+      - Tasks referencing files or components not defined in spec/speckit.plan.
    D. Constitution alignment:
       - Any requirement or plan element conflicting with a MUST principle.
       - Missing mandated sections or quality gates from constitution.
@@ -85,9 +85,9 @@ Execution steps:
      * Critical Issues Count
 
 7. At end of report, output a concise Next Actions block:
-   - If CRITICAL issues exist: Recommend resolving before `/implement`.
+   - If CRITICAL issues exist: Recommend resolving before `/speckit.implement`.
    - If only LOW/MEDIUM: User may proceed, but provide improvement suggestions.
-   - Provide explicit command suggestions: e.g., "Run /specify with refinement", "Run /plan to adjust architecture", "Manually edit tasks.md to add coverage for 'performance-metrics'".
+   - Provide explicit command suggestions: e.g., "Run /speckit.specify with refinement", "Run /speckit.plan to adjust architecture", "Manually edit tasks.md to add coverage for 'performance-metrics'".
 
 8. Ask the user: "Would you like me to suggest concrete remediation edits for the top N issues?" (Do NOT apply them automatically.)
 

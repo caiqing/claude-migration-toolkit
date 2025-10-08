@@ -218,23 +218,25 @@ migrate_ai_collaboration_core() {
     # 创建.claude/commands目录
     execute_file_operation "mkdir" "$TARGET_PROJECT/.claude/commands"
 
-    # 复制collaborate命令
-    execute_file_operation "copy" "$MIGRATION_ROOT/core-files/collaborate.md" "$TARGET_PROJECT/.claude/commands/collaborate.md"
-
-    # 复制enhance命令（增强版AI协作系统）
-    if [ -f "$MIGRATION_ROOT/core-files/enhance.md" ]; then
-        execute_file_operation "copy" "$MIGRATION_ROOT/core-files/enhance.md" "$TARGET_PROJECT/.claude/commands/enhance.md"
-        log_info "复制enhance.md命令文件"
+    # 复制ai.collab命令（统一AI协作系统）
+    if [ -f "$MIGRATION_ROOT/core-files/ai.collab.md" ]; then
+        execute_file_operation "copy" "$MIGRATION_ROOT/core-files/ai.collab.md" "$TARGET_PROJECT/.claude/commands/ai.collab.md"
+        log_info "复制ai.collab.md统一AI协作命令"
     else
-        log_warning "enhance.md文件不存在，跳过增强版命令安装"
+        log_warning "ai.collab.md文件不存在，跳过AI协作命令安装"
     fi
 
-    # 复制save命令（保存协作会话）
-    if [ -f "$MIGRATION_ROOT/core-files/save.md" ]; then
-        execute_file_operation "copy" "$MIGRATION_ROOT/core-files/save.md" "$TARGET_PROJECT/.claude/commands/save.md"
-        log_info "复制save.md命令文件"
+    # 复制新的speckit.*命令文件（specify-cli最新格式）
+    if [ -d "$MIGRATION_ROOT/.claude/commands" ]; then
+        for speckit_cmd in "$MIGRATION_ROOT/.claude/commands"/speckit.*.md; do
+            if [ -f "$speckit_cmd" ]; then
+                cmd_name=$(basename "$speckit_cmd")
+                execute_file_operation "copy" "$speckit_cmd" "$TARGET_PROJECT/.claude/commands/$cmd_name"
+                log_info "复制speckit命令文件: $cmd_name"
+            fi
+        done
     else
-        log_warning "save.md文件不存在，跳过保存命令安装"
+        log_warning "speckit命令文件目录不存在，跳过speckit命令安装"
     fi
 
     log_success "AI协作核心迁移完成"
@@ -380,7 +382,7 @@ show_migration_summary() {
     echo
     echo -e "${CYAN}📊 迁移统计:${NC}"
     echo -e "  📁 目标项目: $TARGET_PROJECT"
-    echo -e "  📄 复制文件: 10个核心文件（包含enhance.md和save.md）"
+    echo -e "  📄 复制文件: 8个核心文件（ai.collab.md + speckit.*命令）"
     echo -e "  📂 创建目录: .claude/, .specify/, docs/"
     echo -e "  🔧 设置权限: 脚本执行权限"
 
@@ -392,12 +394,12 @@ show_migration_summary() {
 
     echo
     echo -e "${CYAN}🚀 迁移后功能:${NC}"
-    echo -e "  🤖 AI协作: /collaborate [范式名称]"
-    echo -e "  ⚡ 增强协作: /enhance [start|save|health]"
-    echo -e "  💾 保存会话: /save"
-    echo -e "  🌱 智能分支: create-new-feature.sh [描述]"
-    echo -e "  📝 自动更新: Git提交时自动更新CHANGELOG"
-    echo -e "  📚 使用指南: docs/ai-collaboration-guide.md"
+    echo -e "  🤖 统一AI协作: /ai.collab [start|save|health|status]"
+    echo -e "  📋 规格驱动开发: /speckit.specify, /speckit.plan, /speckit.tasks"
+    echo -e "  🔍 一致性分析: /speckit.analyze"
+    echo -e "  🌱 智能分支命名: create-new-feature.sh [描述]"
+    echo -e "  📝 自动CHANGELOG: Git提交时自动更新"
+    echo -e "  📚 AI协作指南: docs/ai-collaboration-guide.md"
 
     echo
     echo -e "${GREEN}✨ 迁移完成！现在可以使用Claude AI协作功能了${NC}"
@@ -433,10 +435,10 @@ main() {
         echo
         echo -e "${CYAN}💡 下一步:${NC}"
         echo -e "  1. 验证迁移结果: $SCRIPT_DIR/validator.sh $TARGET_PROJECT"
-        echo -e "  2. 尝试AI协作: cd $TARGET_PROJECT && /collaborate help"
-        echo -e "  3. 体验增强协作: cd $TARGET_PROJECT && /enhance help"
-        echo -e "  4. 测试保存功能: cd $TARGET_PROJECT && /save"
-        echo -e "  5. 创建新功能: cd $TARGET_PROJECT && ./.specify/scripts/bash/create-new-feature.sh '测试功能'"
+        echo -e "  2. 体验AI协作: cd $TARGET_PROJECT && /ai.collab help"
+        echo -e "  3. 启动创意协作: cd $TARGET_PROJECT && /ai.collab start creative '产品创新'"
+        echo -e "  4. 测试规格驱动: cd $TARGET_PROJECT && /speckit.specify '用户认证系统'"
+        echo -e "  5. 创建智能分支: cd $TARGET_PROJECT && ./.specify/scripts/bash/create-new-feature.sh '实现新功能'"
     fi
 }
 

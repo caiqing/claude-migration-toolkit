@@ -22,7 +22,7 @@ $ARGUMENTS
    - Generate tasks based on what's available
 
 3. Generate tasks following the template:
-   - Use `.specify/templates/tasks-template.md` as the base
+   - Use `.specify/templates/speckit.tasks-template.md` as the base
    - Replace example tasks with actual tasks based on:
      * **Setup tasks**: Project init, dependencies, linting
      * **Test tasks [P]**: One per contract, one per integration scenario
@@ -50,7 +50,7 @@ $ARGUMENTS
    - Group [P] tasks that can run together
    - Show actual Task agent commands
 
-7. Create FEATURE_DIR/tasks.md with:
+7. Create FEATURE_DIR/speckit.tasks.md with:
    - Correct feature name from implementation plan
    - Numbered tasks (T001, T002, etc.)
    - Clear file paths for each task

@@ -205,26 +205,26 @@ graph TB
 ## 核心工具与命令
 
 ### 功能开发工作流命令
-- `/speckit.specify [功能描述]` - 创建新功能分支和规格说明文档
+- `/specify [功能描述]` - 创建新功能分支和规格说明文档
   - 执行 `.specify/scripts/bash/create-new-feature.sh`
   - 生成格式为 `[###-feature-name]` 的分支
   - 在 `specs/[###-feature-name]/` 目录下创建规格说明模板
 
-- `/speckit.clarify` - 针对功能规格中的不明确之处提出澄清问题
+- `/clarify` - 针对功能规格中的不明确之处提出澄清问题
   - 用于完善功能规格，减少实现过程中的返工
 
-- `/speckit.plan [实现细节]` - 基于功能规格创建实现计划
+- `/plan [实现细节]` - 基于功能规格创建实现计划
   - 执行 `.specify/scripts/bash/setup-plan.sh`
   - 生成研究文档、数据模型、API契约等设计文档
   - 需要先完成clarify阶段（如果有不明确之处）
 
-- `/speckit.tasks` - 基于实现计划生成具体的开发任务
+- `/tasks` - 基于实现计划生成具体的开发任务
   - 创建依赖有序的任务列表
   - 按照TDD原则组织任务（测试先行）
 
-- `/speckit.analyze` - 跨文档一致性分析和质量检查
-- `/speckit.implement` - 执行实现计划中的所有任务
-- `/speckit.constitution` - 创建或更新项目章程文档
+- `/analyze` - 跨文档一致性分析和质量检查
+- `/implement` - 执行实现计划中的所有任务
+- `/constitution` - 创建或更新项目章程文档
 - `/save` - 保存当前协作会话，生成结构化文档并更新索引
 
 ### 重要脚本
@@ -344,11 +344,11 @@ docs/
 ## 开发最佳实践
 
 ### 功能开发
-1. 始终从 `/speckit.specify` 开始新功能
-2. 在技术实现不明确时使用 `/speckit.clarify`
-3. 使用 `/speckit.plan` 进行详细设计规划
-4. 通过 `/speckit.tasks` 获得具体开发任务
-5. 定期运行 `/speckit.analyze` 检查一致性
+1. 始终从 `/specify` 开始新功能
+2. 在技术实现不明确时使用 `/clarify`
+3. 使用 `/plan` 进行详细设计规划
+4. 通过 `/tasks` 获得具体开发任务
+5. 定期运行 `/analyze` 检查一致性
 
 ### AI协作开发
 1. 复杂问题分析：使用 `/collaborate first-principles` 进行深度分析
