@@ -2,7 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-**版本**: v0.1.0 | **更新日期**: 2025-10-06
+**版本**: v0.1.1 | **更新日期**: 2025-10-08
 
 ## AI协作指导原则
 
@@ -49,6 +49,102 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 2. **核心内容**：使用适当的协作范式呈现
 3. **实践示例**：结合具体案例或代码示例
 4. **总结**：用PREP方法（Point-Reason-Example-Point）收尾
+
+### 文档命名与存储规范
+
+为确保文档管理的统一性和可维护性，所有交互过程中产生的报告文档必须遵循以下规范：
+
+#### 报告文档命名规则
+- **文件命名**：全部使用小写字母，单词间用连字符(-)分隔
+- **文件格式**：`docs/reports/主题描述-report.md`
+- **日期格式**：可选前缀 `YYYYMMDD-主题描述-report.md`
+
+#### 标准报告类型
+- `analysis-report.md` - 分析报告
+- `migration-test-report.md` - 迁移测试报告
+- `feature-analysis-report.md` - 功能分析报告
+- `system-review-report.md` - 系统审查报告
+- `performance-report.md` - 性能分析报告
+- `security-assessment-report.md` - 安全评估报告
+- `code-review-report.md` - 代码审查报告
+- `architecture-analysis-report.md` - 架构分析报告
+- `user-research-report.md` - 用户研究报告
+- `technical-investigation-report.md` - 技术调研报告
+
+#### 文档目录结构
+
+```text
+docs/
+├── reports/                 # 所有报告文档统一存储目录
+│   ├── analysis-report.md
+│   ├── migration-test-report.md
+│   ├── 20251008-feature-analysis-report.md
+│   └── technical-investigation-report.md
+├── collaboration/           # AI协作会话记录
+│   ├── index.md
+│   └── yyyy-mm-dd-session-topic.md
+└── README.md               # 文档索引说明
+```
+
+#### 自动化报告生成
+
+当需要生成报告文档时，使用以下标准模板：
+
+```bash
+# 确保reports目录存在
+mkdir -p docs/reports
+
+# 生成标准命名格式的报告
+cat > docs/reports/$(date +%Y%m%d)-${topic}-report.md << 'EOF'
+# ${主题}报告
+
+**生成日期**: $(date +%Y-%m-%d)
+**报告类型**: ${报告类型}
+**负责人**: Claude AI助手
+
+## 执行摘要
+[报告摘要内容]
+
+## 详细分析
+[详细分析内容]
+
+## 结论与建议
+[结论和建议]
+
+---
+*此报告由Claude AI助手自动生成*
+EOF
+```
+
+#### 报告内容标准结构
+
+每个报告文档都应包含以下标准结构：
+
+1. **文档头部**
+   - 标题：使用 # 一级标题
+   - 生成日期：YYYY-MM-DD格式
+   - 报告类型：明确标识报告类型
+   - 负责人：Claude AI助手
+
+2. **核心章节**
+   - 执行摘要：简要概述报告核心内容
+   - 背景信息：分析背景和目标说明
+   - 详细分析：主体分析内容
+   - 数据支撑：相关数据和证据
+   - 结论与建议：总结性观点和行动建议
+
+3. **附录信息**
+   - 相关链接：参考资料和文档链接
+   - 生成方式：说明报告生成方法
+   - 版本信息：报告版本和更新记录
+
+#### 文档管理最佳实践
+
+- **统一存储**：所有报告统一存储在 `docs/reports/` 目录
+- **命名规范**：严格按照小写+连字符的命名规范
+- **版本控制**：重要报告变更时保留历史版本
+- **索引维护**：定期更新 `docs/reports/README.md` 索引文件
+- **分类归档**：按类型或日期对报告进行分类管理
 
 ### 实施示例模板
 
