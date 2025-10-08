@@ -16,7 +16,8 @@
       "Bash(timeout:*)",
       "Bash(./scripts/migrate.sh:*)",
       "Bash(./scripts/validator.sh:*)",
-      "Bash(./scripts/path-adapter.sh:*)"
+      "Bash(./scripts/path-adapter.sh:*)",
+      "Bash(mv:*)"
     ],
     "deny": [],
     "ask": []
