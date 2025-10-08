@@ -1,7 +1,7 @@
 # Claude标准迁移工具包
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-v0.1.0-blue.svg)](https://github.com/caiqing/claude-migration-toolkit/releases)
+[![Version](https://img.shields.io/badge/version-v0.1.1-blue.svg)](https://github.com/caiqing/claude-migration-toolkit/releases)
 [![Release Status](https://img.shields.io/badge/release-stable-brightgreen.svg)](https://github.com/caiqing/claude-migration-toolkit)
 
 这个工具包提供了将Claude AI协作功能和智能开发工作流迁移到其他项目的完整解决方案，包含完整的协作会话管理系统和增强版错误处理机制。
@@ -203,4 +203,4 @@ claude-migration-toolkit/
 
 ---
 
-**版本**: v0.1.0 (2025-10-08) | **维护者**: [开目软件 AI研究院](https://github.com/caiqing)
+**版本**: v0.1.1 (2025-10-08) | **维护者**: [开目软件 AI研究院](https://github.com/caiqing)
