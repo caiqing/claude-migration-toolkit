@@ -17,10 +17,16 @@
       "Bash(./scripts/migrate.sh:*)",
       "Bash(./scripts/validator.sh:*)",
       "Bash(./scripts/path-adapter.sh:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(tree:*)",
+      "Bash(mkdir:*)"
     ],
     "deny": [],
     "ask": []
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash .claude/scripts/status_line_script.sh"
   },
   "outputStyle": "ai-collaboration"
 }
