@@ -21,6 +21,7 @@ TARGET_PROJECT="${1:-$(pwd)}"
 DRY_RUN=false
 VERBOSE=false
 SKIP_GIT_HOOKS=false
+SKIP_STATUSBAR=false
 
 # 显示帮助信息
 show_help() {
@@ -33,6 +34,7 @@ Claude标准迁移工具
   --dry-run          预览迁移操作，不实际执行
   --verbose          显示详细输出
   --skip-git-hooks   跳过Git hooks安装
+  --skip-statusbar   跳过状态栏配置迁移
   --help, -h         显示此帮助信息
 
 参数:
@@ -43,6 +45,7 @@ Claude标准迁移工具
   $0 /path/to/my-project                     # 迁移到指定项目
   $0 --dry-run /path/to/my-project           # 预览迁移操作
   $0 --verbose --skip-git-hooks ./new-project # 详细输出，跳过hooks
+  $0 --skip-statusbar ./project              # 迁移但跳过状态栏配置
 
 迁移组件:
   ✅ AI协作核心 (CLAUDE.md + /collaborate + /enhance + /save命令)
@@ -50,6 +53,7 @@ Claude标准迁移工具
   ✅ Git自动化系统 (3个脚本)
   ✅ AI协作指南 (1个模板)
   ✅ 增强版协作系统 (优化功能和错误处理)
+  ✅ Claude Code状态栏配置 (自定义状态栏显示)
 
 EOF
 }
@@ -68,6 +72,10 @@ parse_args() {
                 ;;
             --skip-git-hooks)
                 SKIP_GIT_HOOKS=true
+                shift
+                ;;
+            --skip-statusbar)
+                SKIP_STATUSBAR=true
                 shift
                 ;;
             --help|-h)
@@ -359,6 +367,59 @@ migrate_optimization_components() {
     fi
 }
 
+# 迁移Claude Code状态栏配置
+migrate_statusbar_config() {
+    if [ "$SKIP_STATUSBAR" = true ]; then
+        log_info "跳过状态栏配置迁移（用户选择）"
+        return
+    fi
+
+    log_step "迁移Claude Code状态栏配置"
+
+    # 检查状态栏迁移脚本是否存在
+    local statusbar_migrate_script="$SCRIPT_DIR/migrate-statusbar-config.sh"
+    if [ ! -f "$statusbar_migrate_script" ]; then
+        log_warning "状态栏迁移脚本不存在，跳过状态栏配置迁移"
+        return
+    fi
+
+    # 检查源项目是否有状态栏配置
+    local source_settings="$MIGRATION_ROOT/.claude/settings.local.json"
+    if [ ! -f "$source_settings" ]; then
+        log_info "源项目未找到状态栏配置，跳过迁移"
+        return
+    fi
+
+    # 检查源项目是否启用了状态栏配置
+    if ! jq -e '.statusLine' "$source_settings" >/dev/null 2>&1; then
+        log_info "源项目未启用状态栏配置，跳过迁移"
+        return
+    fi
+
+    # 构建迁移命令参数
+    local migrate_args=""
+    if [ "$DRY_RUN" = true ]; then
+        migrate_args="$migrate_args --dry-run"
+    fi
+    if [ "$VERBOSE" = true ]; then
+        migrate_args="$migrate_args --verbose"
+    fi
+    migrate_args="$migrate_args -s \"$MIGRATION_ROOT\" -m adapt \"$TARGET_PROJECT\""
+
+    # 执行状态栏迁移
+    if [ "$DRY_RUN" = false ]; then
+        log_info "执行状态栏配置迁移..."
+        if bash "$statusbar_migrate_script" -s "$MIGRATION_ROOT" -m adapt "$TARGET_PROJECT" >/dev/null 2>&1; then
+            log_success "状态栏配置迁移完成"
+        else
+            log_warning "状态栏配置迁移失败，但不影响其他功能"
+            log_info "可以手动运行: $statusbar_migrate_script -s \"$MIGRATION_ROOT\" \"$TARGET_PROJECT\""
+        fi
+    else
+        echo -e "${CYAN}[DRY-RUN]${NC} 执行状态栏配置迁移: $statusbar_migrate_script $migrate_args"
+    fi
+}
+
 # 运行路径适配器
 run_path_adapter() {
     log_step "运行路径适配器"
@@ -416,6 +477,12 @@ show_migration_summary() {
     echo -e "  🔧 设置权限: 脚本执行权限"
     echo -e "  ⚡ 系统优化: 5个optimization组件"
 
+    if [ "$SKIP_STATUSBAR" = false ]; then
+        echo -e "  📊 状态栏配置: 自定义Claude Code状态栏"
+    else
+        echo -e "  📊 状态栏配置: 已跳过"
+    fi
+
     if [ "$SKIP_GIT_HOOKS" = false ]; then
         echo -e "  🎣 Git hooks: 已安装"
     else
@@ -431,6 +498,10 @@ show_migration_summary() {
     echo -e "  📝 自动CHANGELOG: Git提交时自动更新"
     echo -e "  📚 AI协作指南: docs/ai-collaboration-guide.md"
     echo -e "  ⚡ 系统优化: 增强版协作、错误处理、内容验证"
+
+    if [ "$SKIP_STATUSBAR" = false ]; then
+        echo -e "  📊 状态栏显示: 自定义模型信息、Git分支、Token使用情况"
+    fi
 
     echo
     echo -e "${GREEN}✨ 迁移完成！现在可以使用Claude AI协作功能了${NC}"
@@ -459,6 +530,7 @@ main() {
     migrate_ai_collaboration_guide
     migrate_templates
     migrate_optimization_components
+    migrate_statusbar_config
     run_path_adapter
     install_git_hooks
     show_migration_summary
@@ -472,6 +544,13 @@ main() {
         echo -e "  4. 测试规格驱动: cd $TARGET_PROJECT && /speckit.specify '用户认证系统'"
         echo -e "  5. 创建智能分支: cd $TARGET_PROJECT && ./.specify/scripts/bash/create-new-feature.sh '实现新功能'"
         echo -e "  6. 系统优化工具: cd $TARGET_PROJECT && ./.specify/optimization/enhanced-collaboration.sh health"
+
+        if [ "$SKIP_STATUSBAR" = false ]; then
+            echo -e "  7. 状态栏配置: 检查 $TARGET_PROJECT/.claude/settings.local.json 中的statusLine配置"
+            echo -e "  8. 重启Claude Code以应用状态栏配置"
+        else
+            echo -e "  7. 手动迁移状态栏: $SCRIPT_DIR/migrate-statusbar-config.sh $TARGET_PROJECT"
+        fi
     fi
 }
 

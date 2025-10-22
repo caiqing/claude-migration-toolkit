@@ -13,6 +13,7 @@
 - **🔧 系统优化组件** - 增强版内容处理、错误诊断、完整性验证
 - **🌟 智能分支命名** - 中文语义到英文的智能映射
 - **📊 Git自动化** - 自动CHANGELOG更新和提交解析
+- **📈 Claude Code状态栏** - 自定义状态栏显示，包含模型信息、Git分支、Token使用情况
 - **🛡️ 内容完整性保障** - Mermaid图表、代码块100%保护，保存成功率97%
 
 ## 🚀 快速开始
@@ -38,11 +39,26 @@ git clone https://github.com/caiqing/claude-migration-toolkit.git
 # 进入工具目录
 cd claude-migration-toolkit
 
-# 运行主迁移脚本
+# 运行主迁移脚本（包含状态栏配置）
 ./scripts/migrate.sh /path/to/target/project
 
 # 验证迁移结果
 ./scripts/validator.sh /path/to/target/project
+```
+
+**迁移选项**：
+```bash
+# 完整迁移（包含所有组件）
+./scripts/migrate.sh /path/to/target/project
+
+# 跳过状态栏配置迁移
+./scripts/migrate.sh --skip-statusbar /path/to/target/project
+
+# 预览迁移操作
+./scripts/migrate.sh --dry-run /path/to/target/project
+
+# 详细输出模式
+./scripts/migrate.sh --verbose /path/to/target/project
 ```
 
 ## 📖 使用指南
@@ -92,6 +108,24 @@ cd claude-migration-toolkit
 # 自动生成分支名：001-user-authentication
 ```
 
+### Claude Code 状态栏配置
+
+迁移后，您将获得自定义的 Claude Code 状态栏，显示：
+
+```bash
+# 状态栏显示内容示例:
+[Claude-3.5-Sonnet] 📁 my-project | 🌿 main | 📊 上下文: 15.2% (30480/200000)
+```
+
+**包含信息**：
+- 🤖 **AI模型名称**: 当前使用的 Claude 模型
+- 📁 **项目目录**: 当前工作目录名
+- 🌿 **Git分支**: 当前 Git 分支（如果是 Git 仓库）
+- 📊 **上下文使用情况**: Token 使用百分比和具体数量
+
+**自定义配置**：
+编辑 `.claude/scripts/status_line_script.sh` 来自定义显示内容。
+
 ### 系统优化工具
 
 ```bash
@@ -134,6 +168,7 @@ claude-migration-toolkit/
 │       └── README.md
 ├── scripts/              # 主要脚本
 │   ├── migrate.sh        # 主迁移脚本 ⭐
+│   ├── migrate-statusbar-config.sh  # 状态栏配置迁移脚本 ⭐
 │   ├── validator.sh      # 验证脚本 ⭐
 │   └── path-adapter.sh   # 路径适配器 ⭐
 └── README.md            # 项目说明文档
@@ -142,7 +177,8 @@ claude-migration-toolkit/
 ## 🎯 核心文件说明
 
 ### 核心脚本说明
-- **migrate.sh**: 主迁移脚本，用于将工具包迁移到目标项目
+- **migrate.sh**: 主迁移脚本，一键迁移所有组件到目标项目
+- **migrate-statusbar-config.sh**: 状态栏配置迁移脚本，支持独立迁移状态栏配置
 - **validator.sh**: 验证脚本，检查迁移完整性
 - **path-adapter.sh**: 路径适配器，处理不同环境路径问题
 
@@ -162,6 +198,7 @@ claude-migration-toolkit/
 ✅ **已完成的迁移**:
 - AI协作系统 v2.0 (ai.collab)
 - Speckit工作流命令 (8个命令)
+- Claude Code状态栏配置迁移集成
 - 项目结构优化
 - 文档整理和归档
 - 权限配置更新
@@ -182,11 +219,13 @@ claude-migration-toolkit/
 
 - [SDD规范驱动开发](docs/SDD规范驱动开发.md) - 规范驱动开发方法论和实践指南
 - [系统优化指南](docs/system_optimization_guide.md)
+- [状态栏配置迁移指南](docs/statusbar-migration-guide.md) - Claude Code状态栏配置迁移详细指南
 - [项目报告文档](docs/reports/) - 完整的技术报告和发布说明
   - [v0.1.0最终发布报告](docs/reports/v0.1.0_final_release_report.md)
   - [AI协作命令简化报告](docs/reports/ai_collab_command_simplification_report.md)
   - [最终命令架构文档](docs/reports/final_command_architecture.md)
   - [Speckit迁移报告](docs/reports/speckit_migration_report.md)
+  - [状态栏配置迁移可行性评估报告](docs/reports/20251022-statusbar-config-migration-feasibility-report.md)
 - [变更日志](docs/CHANGELOG.md)
 - [AI协作会话记录](docs/collaboration/) - 历史协作会话文档
 
@@ -210,4 +249,4 @@ claude-migration-toolkit/
 
 ---
 
-**版本**: v0.1.1 (2025-10-08) | **维护者**: [开目软件 AI研究院](https://github.com/caiqing)
+**版本**: v0.1.2 (2025-10-22) | **维护者**: [开目软件 AI研究院](https://github.com/caiqing)
