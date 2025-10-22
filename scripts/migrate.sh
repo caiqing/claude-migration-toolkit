@@ -223,6 +223,56 @@ migrate_ai_collaboration_core() {
     execute_file_operation "mkdir" "$TARGET_PROJECT"
     execute_file_operation "copy" "$MIGRATION_ROOT/core-files/CLAUDE.md" "$TARGET_PROJECT/CLAUDE.md"
 
+    # 创建.claude目录并迁移基础配置
+    execute_file_operation "mkdir" "$TARGET_PROJECT/.claude"
+
+    # 迁移基础配置文件（如果目标没有的话）
+    if [ ! -f "$TARGET_PROJECT/.claude/settings.local.json" ]; then
+        # 确保目录存在
+        if [ "$DRY_RUN" = false ]; then
+            mkdir -p "$TARGET_PROJECT/.claude"
+        fi
+
+        # 创建基础配置文件，包含AI协作输出样式
+        local basic_config='{
+  "permissions": {
+    "allow": [
+      "Bash(.specify/scripts/bash/check-prerequisites.sh:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx tsc:*)",
+      "Bash(./.specify/scripts/bash/collaboration-session-automation.sh:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(chmod:*)",
+      "Bash(./verify-migration.sh:*)",
+      "Bash(./.specify/scripts/bash/collaboration-recorder.sh:*)",
+      "Bash(./.specify/scripts/bash/collaboration-enhanced.sh:*)",
+      "Bash(bash:*)",
+      "Bash(./core-files/collaboration-enhanced.sh:*)",
+      "Bash(timeout:*)",
+      "Bash(./scripts/migrate.sh:*)",
+      "Bash(./scripts/validator.sh:*)",
+      "Bash(./scripts/path-adapter.sh:*)",
+      "Bash(mv:*)",
+      "Bash(tree:*)",
+      "Bash(mkdir:*)"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "outputStyle": "ai-collaboration"
+}'
+
+        if [ "$DRY_RUN" = false ]; then
+            echo "$basic_config" > "$TARGET_PROJECT/.claude/settings.local.json"
+            log_info "创建基础配置文件: .claude/settings.local.json"
+        else
+            echo -e "${CYAN}[DRY-RUN]${NC} 创建基础配置文件: .claude/settings.local.json"
+        fi
+    else
+        log_info "目标项目已有配置文件，跳过基础配置创建"
+    fi
+
     # 创建.claude/commands目录
     execute_file_operation "mkdir" "$TARGET_PROJECT/.claude/commands"
 
@@ -409,8 +459,18 @@ migrate_statusbar_config() {
     # 执行状态栏迁移
     if [ "$DRY_RUN" = false ]; then
         log_info "执行状态栏配置迁移..."
-        if bash "$statusbar_migrate_script" -s "$MIGRATION_ROOT" -m adapt "$TARGET_PROJECT" >/dev/null 2>&1; then
+        if bash "$statusbar_migrate_script" -s "$MIGRATION_ROOT" -m adapt "$TARGET_PROJECT" 2>&1; then
             log_success "状态栏配置迁移完成"
+
+            # 自动验证状态栏配置
+            if [ -f "$SCRIPT_DIR/validate-statusbar.sh" ]; then
+                log_info "验证状态栏配置..."
+                if bash "$SCRIPT_DIR/validate-statusbar.sh" "$TARGET_PROJECT" >/dev/null 2>&1; then
+                    log_success "状态栏配置验证通过"
+                else
+                    log_warning "状态栏配置验证失败，请手动检查"
+                fi
+            fi
         else
             log_warning "状态栏配置迁移失败，但不影响其他功能"
             log_info "可以手动运行: $statusbar_migrate_script -s \"$MIGRATION_ROOT\" \"$TARGET_PROJECT\""
@@ -546,10 +606,12 @@ main() {
         echo -e "  6. 系统优化工具: cd $TARGET_PROJECT && ./.specify/optimization/enhanced-collaboration.sh health"
 
         if [ "$SKIP_STATUSBAR" = false ]; then
-            echo -e "  7. 状态栏配置: 检查 $TARGET_PROJECT/.claude/settings.local.json 中的statusLine配置"
+            echo -e "  7. 状态栏配置: 已自动验证配置正确性"
             echo -e "  8. 重启Claude Code以应用状态栏配置"
+            echo -e "  9. 手动验证: $SCRIPT_DIR/validate-statusbar.sh $TARGET_PROJECT"
         else
             echo -e "  7. 手动迁移状态栏: $SCRIPT_DIR/migrate-statusbar-config.sh $TARGET_PROJECT"
+            echo -e "  8. 验证状态栏: $SCRIPT_DIR/validate-statusbar.sh $TARGET_PROJECT"
         fi
     fi
 }

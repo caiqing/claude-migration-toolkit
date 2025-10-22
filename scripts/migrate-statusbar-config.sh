@@ -299,20 +299,37 @@ generate_target_config() {
 
     # 如果目标文件已存在，合并配置
     if [[ -f "$target_settings" ]]; then
-        # 备份现有配置的输出样式
+        # 备份现有配置的输出样式和其他现有配置
         local output_style
         output_style=$(jq -r '.outputStyle // "default"' "$target_settings")
 
-        # 更新配置
-        echo "$config_json" | jq --arg style "$output_style" '.outputStyle = $style' > "$target_settings.new"
+        # 保留现有权限配置，如果有的话
+        local existing_perms
+        existing_perms=$(jq -r '.permissions.allow[]?' "$target_settings" 2>/dev/null || true)
 
-        if [[ "$FORCE_OVERWRITE" == "true" ]]; then
-            mv "$target_settings.new" "$target_settings"
-        else
-            log_warning "目标配置文件已存在，使用 --force 强制覆盖"
-            rm "$target_settings.new"
-            return 1
+        # 合并权限配置（新权限 + 现有权限）
+        local merged_config="$config_json"
+        if [[ -n "$existing_perms" ]]; then
+            # 将现有权限转换为JSON数组
+            local existing_perms_json
+            existing_perms_json=$(echo "$existing_perms" | jq -R . | jq -s .)
+
+            # 获取新权限配置
+            local new_perms_json="[]"
+            if [[ -f "$temp_perms_file" && -s "$temp_perms_file" ]]; then
+                new_perms_json=$(jq -R -s 'split("\n") | map(select(length > 0))' "$temp_perms_file")
+            fi
+
+            # 合并权限（去重）
+            merged_config=$(echo "$config_json" | jq --argjson existing "$existing_perms_json" --argjson new "$new_perms_json" '.permissions.allow = ($existing + $new | unique)')
         fi
+
+        # 更新配置，保留现有设置并添加状态栏配置
+        echo "$merged_config" | jq --arg style "$output_style" '.outputStyle = $style' > "$target_settings.new"
+
+        # 移动临时文件到目标位置
+        mv "$target_settings.new" "$target_settings"
+        log_success "配置文件已更新，添加了状态栏配置"
     else
         # 创建新配置文件
         echo "$config_json" > "$target_settings"
